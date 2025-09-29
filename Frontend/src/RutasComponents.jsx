@@ -28,10 +28,12 @@ import Feedbacks from '../src/pages/Feedback/Feedbacks';
 import SubirAprendices from "./pages/SubirAprendices/SubirAprendices"
 import AprendicesCargados from "./pages/SubirAprendices/AprendicesCargados"
 import PlanificarEvento from "./pages/PlanificarEv/PlanificarEvento";
+import ToastProvider from "../public/ToastProvider";
 
 export default function RutasComponents() {
   return (
     <BrowserRouter>
+     <ToastProvider />
       <AuthProvider> {/* Se envuelve todo*/}
         <IAProvider>
           <Routes>

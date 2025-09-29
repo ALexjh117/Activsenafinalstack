@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/inicio.css";
 import api from "../src/services/api";
+import { Toaster, toast } from "react-hot-toast";
+
 
 //  Importa el contexto
 import { useAuth } from "../src/Context/AuthContext"; // Ajusta la ruta si es necesario
@@ -17,6 +19,7 @@ const IconoMail = () => (
     />
   </svg>
 );
+
 
 const IconoCandado = () => (
   <svg className="icono-input-inicio" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,7 +76,8 @@ console.log ( "usuario recibido" , usuario);
 localStorage.setItem("IdUsuario", usuario.IdUsuario); // ✅ Cambiado
 localStorage.setItem("token", token);
 
-      setMensaje(" Inicio de sesión exitoso");
+     toast.success("Inicio de sesión exitoso");
+
       setTipoMensaje("exito");
 
  setTimeout(() => {
@@ -88,19 +92,25 @@ localStorage.setItem("token", token);
 
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
-      setMensaje("❌ Usuario o contraseña incorrectos");
+      toast.error("Usuario o contraseña incorrectos");
+
       setTipoMensaje("error");
     } finally {
       setCargando(false);
     }
   };
+  
 
   return (
+    <>
+  
+    
     <form className="formulario-inicio-sesion" onSubmit={manejarEnvio}>
       <div className="grupo-campo-inicio">
         <label htmlFor="correo-inicio" className="etiqueta-inicio etiqueta-inicio-desktop">
           Correo Electrónico
         </label>
+        
         <div className="contenedor-input-inicio">
           <IconoMail />
           <input
@@ -164,5 +174,9 @@ localStorage.setItem("token", token);
         </p>
       )}
     </form>
+
+
+
+    </>
   );
 }

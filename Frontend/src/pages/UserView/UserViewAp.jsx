@@ -14,6 +14,7 @@ import { FaUserGraduate, FaBook, FaIdBadge, FaClock, FaPhone, FaEnvelope } from 
 import "./styles/UserView.css";
 import axios from "axios";
 
+
 export default function UserViewAp({ setContenidoActual }) {
   const fetched = useRef(false);
   const [usuario, setUsuario] = useState(null);
@@ -69,11 +70,17 @@ export default function UserViewAp({ setContenidoActual }) {
   }, []);
 
   return (
+    <>
+    
+   <h1 style={{marginLeft:60 }}>Bienvenido De nuevo <strong  className="text-bienvenida">Aprendiz</strong> </h1>
     <section className="UserContenedor">
+      
       {!usuario ? (
         <p>Cargando datos...</p>
       ) : (
+        
         <div className="UserCuadro UserInfo">
+          
           <div className="UserProfileCard">
             <img src={avatar} alt="Avatar" className="UserProfileAvatar" />
             <div className="UserProfileName">{usuario.Nombre} {usuario.Apellido}</div>
@@ -95,7 +102,9 @@ export default function UserViewAp({ setContenidoActual }) {
 
       {/* Agrupa aquí */}
       <div className="UserMainContent">
+      
         <div className="UserCuadro UserLudicas">
+        
           <h3 className="UserTitulo">Lúdicas</h3>
           <div className="UserTarjetas">
             <div className="UserTarjeta" onClick={() => abrirModal("Baile Caucano", (
@@ -221,5 +230,6 @@ export default function UserViewAp({ setContenidoActual }) {
         </div>
       )}
     </section>
+    </>
   );
 }

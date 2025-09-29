@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./style/MisLudicas.css"
+import "./style/MisLudicas.css";
+import ReporteAsistencia from "./Reportes"; 
+
 export default function MisActividadesYLudicas() {
   const [actividades, setActividades] = useState([]);
   const [ludicas, setLudicas] = useState([]);
   const [vista, setVista] = useState("actividades");
   const [asistencias, setAsistencias] = useState({});
   const [usuarioId, setUsuarioId] = useState(null);
+
+  // nuevo estado para modal/reporte
+  const [modalOpen, setModalOpen] = useState(false);
+  const [reporteActividadId, setReporteActividadId] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -53,6 +59,16 @@ export default function MisActividadesYLudicas() {
     }
   };
 
+  // abrir modal con el reporte
+  const abrirReporte = (id) => {
+    setReporteActividadId(id);
+    setModalOpen(true);
+  };
+  const cerrarModal = () => {
+    setModalOpen(false);
+    setReporteActividadId(null);
+  };
+
   return (
     <div className="mis-actividades-contenedor">
       <h2>Mis Registros</h2>
@@ -69,7 +85,7 @@ export default function MisActividadesYLudicas() {
           className={vista === "ludicas" ? "active-tab" : ""}
           onClick={() => setVista("ludicas")}
         >
-           Lúdicas
+          Lúdicas
         </button>
       </div>
 
@@ -87,7 +103,12 @@ export default function MisActividadesYLudicas() {
               {act.CodigoQRSalida && <img src={act.CodigoQRSalida} alt="QR Salida" />}
             </div>
 
-            <button onClick={() => obtenerAsistencias(act.IdActividad)}>📥 Ver asistencia</button>
+            <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+              <button onClick={() => obtenerAsistencias(act.IdActividad)}>📥 Ver asistencia</button>
+
+              {/* Botón nuevo para abrir reporte */}
+              <button onClick={() => abrirReporte(act.IdActividad)}>📊 Ver reporte</button>
+            </div>
 
             {asistencias[act.IdActividad] && (
               <div className="tabla-asistencia">
@@ -144,7 +165,10 @@ export default function MisActividadesYLudicas() {
               <img src={ludica.CodigoQRSalida} alt="QR Salida" />
             </div>
 
-            <button onClick={() => obtenerAsistencias(ludica.IdActividad)}>📥 Ver asistentes</button>
+            <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+              <button onClick={() => obtenerAsistencias(ludica.IdActividad)}>📥 Ver asistentes</button>
+              <button onClick={() => abrirReporte(ludica.IdActividad)}>📊 Ver reporte</button>
+            </div>
 
             {asistencias[ludica.IdActividad] && (
               <div className="tabla-asistencia">
@@ -186,6 +210,35 @@ export default function MisActividadesYLudicas() {
             )}
           </div>
         ))}
+
+      {/* Modal overlay */}
+      {modalOpen && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.5)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 9999,
+          }}
+          onClick={cerrarModal}
+        >
+          <div
+            style={{ width: "95%", maxWidth: 1100, background: "#fff", borderRadius: 8, padding: 16, maxHeight: '90vh', overflow: 'auto' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+              <h3>Reporte - Actividad {reporteActividadId}</h3>
+              <button onClick={cerrarModal}>Cerrar ✖</button>
+            </div>
+
+            {/* Componente de reporte */}
+            <ReporteAsistencia actividadId={reporteActividadId} />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
