@@ -34,7 +34,9 @@ useEffect(() => {
           signal: controller.signal,
         });
 
-        const data = Array.isArray(res.data) ? res.data : res.data?.aprendices ?? [];
+      const data: AprendizConUsuario[] = Array.isArray(res.data)
+  ? res.data
+  : res.data?.aprendices ?? [];
 
         // Generar key estable para cada aprendiz
         const dataWithKeys = data.map((item, idx) => {
