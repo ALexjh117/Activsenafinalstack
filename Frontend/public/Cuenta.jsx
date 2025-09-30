@@ -65,12 +65,7 @@ export default function Cuenta() {
               {esLogin ? <InicioSesion alEnviar={manejarInicioSesion} /> : <Registro alEnviar={manejarRegistro} />}
 
               <div className="contenedor-cambio-formulario">
-                <button
-                  onClick={() => setEsLogin(!esLogin)}
-                  className="boton-cambio-formulario boton-cambio-formulario-desktop"
-                >
-                  {esLogin ? "¿No tienes cuenta? Regístrate aquí" : "¿Ya tienes cuenta? Inicia sesión aquí"}
-                </button>
+              
               </div>
             </div>
           </div>

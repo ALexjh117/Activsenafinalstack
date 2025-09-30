@@ -192,10 +192,7 @@ const Registro = () => {
           </>
         )}
 
-        <div className="grupo-campo-registro">
-          <input type="checkbox" name="aceptaTerminos" checked={formulario.aceptaTerminos} onChange={handleChange} />
-          <label>Acepto los términos y condiciones</label>
-        </div>
+       
 
         <button type="submit" className="boton-registro" disabled={cargando}>
           {cargando ? 'Registrando...' : 'Registrar'}
