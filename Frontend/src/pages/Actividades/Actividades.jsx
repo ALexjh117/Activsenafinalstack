@@ -43,6 +43,8 @@ export default function Actividades({ setContenidoActual }) {
   const [calificacion, setCalificacion] = useState(0);
   const [feedbacksActividad, setFeedbacksActividad] = useState([]);
   const [filtro, setFiltro] = useState("");
+  const [paginaActual, setPaginaActual] = useState(1);
+  const itemsPorPagina = 5;
 
   const obtenerIdUsuario = () => {
     const token = localStorage.getItem("token");
@@ -117,15 +119,12 @@ export default function Actividades({ setContenidoActual }) {
 
   const calcularPromedioCalificacion = () => {
     if (feedbacksActividad.length === 0) return 0;
-    const suma = feedbacksActividad.reduce(
-      (total, fb) => total + (fb.Calificacion || 0),
-      0
-    );
+    const suma = feedbacksActividad.reduce((total, fb) => total + (fb.Calificacion || 0), 0);
     return (suma / feedbacksActividad.length).toFixed(1);
   };
 
   const actividadesConImagen = actividades
-    .filter((a) => a.ImagenUrl) // ahora usamos ImagenUrl
+    .filter((a) => a.ImagenUrl)
     .filter(
       (a) =>
         a.NombreActi.toLowerCase().includes(filtro.toLowerCase()) ||
@@ -148,6 +147,16 @@ export default function Actividades({ setContenidoActual }) {
       return ahora >= inicio && ahora <= fin;
     })();
 
+  // --- PAGINACIÓN ---
+  const indexUltimoItem = paginaActual * itemsPorPagina;
+  const indexPrimerItem = indexUltimoItem - itemsPorPagina;
+  const actividadesPaginadas = actividadesConImagen.slice(indexPrimerItem, indexUltimoItem);
+  const totalPaginas = Math.ceil(actividadesConImagen.length / itemsPorPagina);
+
+  const cambiarPagina = (num) => {
+    setPaginaActual(num);
+  };
+
   return (
     <div className="actividades-contenedor">
       <header className="actividades-cabecera">
@@ -157,12 +166,14 @@ export default function Actividades({ setContenidoActual }) {
             type="text"
             placeholder="🔍 Buscar por nombre o ubicación..."
             value={filtro}
-            onChange={(e) => setFiltro(e.target.value)}
+            onChange={(e) => {
+              setFiltro(e.target.value);
+              setPaginaActual(1); // resetear a primera página al filtrar
+            }}
           />
         </div>
         <p className="actividades-descripcion">
-          Explora las actividades semanales pensadas para tu bienestar y
-          formación integral.
+          Explora las actividades semanales pensadas para tu bienestar y formación integral.
         </p>
       </header>
 
@@ -170,7 +181,7 @@ export default function Actividades({ setContenidoActual }) {
         <section className="actividades-historias">
           <h2 className="historias-titulo">Historias recientes</h2>
           <div className="historias-contenedor">
-            {actividadesConImagen.map((actividad) => (
+            {actividadesPaginadas.map((actividad) => (
               <div
                 key={actividad.IdActividad}
                 className="historia"
@@ -193,12 +204,12 @@ export default function Actividades({ setContenidoActual }) {
       )}
 
       <main className="actividades-galeria">
-        {actividadesConImagen.length === 0 ? (
+        {actividadesPaginadas.length === 0 ? (
           <p className="actividades-vacio">
             😕 No se encontraron actividades con ese criterio.
           </p>
         ) : (
-          actividadesConImagen.map((actividad) => (
+          actividadesPaginadas.map((actividad) => (
             <motion.article
               key={actividad.IdActividad}
               className="actividades-card"
@@ -212,7 +223,6 @@ export default function Actividades({ setContenidoActual }) {
                 className="actividades-img"
                 onClick={() => abrirModal(actividad)}
               />
-
               <div className="actividades-info">
                 <h4>{actividad.NombreActi}</h4>
                 <p>{actividad.Descripcion}</p>
@@ -236,39 +246,40 @@ export default function Actividades({ setContenidoActual }) {
         )}
       </main>
 
+      {/* PAGINACIÓN */}
+      {totalPaginas > 1 && (
+        <div className="paginacion">
+          {Array.from({ length: totalPaginas }, (_, i) => (
+            <button
+              key={i + 1}
+              className={paginaActual === i + 1 ? "active" : ""}
+              onClick={() => cambiarPagina(i + 1)}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* MODAL */}
       {actividadSeleccionada && (
         <div className="modal-overlay" onClick={cerrarModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={cerrarModal}>
-              ×
-            </button>
+            <button className="modal-close" onClick={cerrarModal}>×</button>
             <img
               src={actividadSeleccionada.ImagenUrl}
               alt={actividadSeleccionada.NombreActi}
               className="modal-img"
             />
             <h2>{actividadSeleccionada.NombreActi}</h2>
-            <p>
-              <strong>Descripción:</strong> {actividadSeleccionada.Descripcion}
-            </p>
-            <p>
-              <strong>Ubicación:</strong> {actividadSeleccionada.Ubicacion}
-            </p>
-            <p>
-              <strong>Horario:</strong>{" "}
-              {formatearHora(actividadSeleccionada.HoraInicio)} a{" "}
-              {formatearHora(actividadSeleccionada.HoraFin)}
-            </p>
-            <p>
-              <strong>Fecha:</strong>{" "}
-              {formatearFecha(actividadSeleccionada.FechaInicio)}
-            </p>
+            <p><strong>Descripción:</strong> {actividadSeleccionada.Descripcion}</p>
+            <p><strong>Ubicación:</strong> {actividadSeleccionada.Ubicacion}</p>
+            <p><strong>Horario:</strong> {formatearHora(actividadSeleccionada.HoraInicio)} a {formatearHora(actividadSeleccionada.HoraFin)}</p>
+            <p><strong>Fecha:</strong> {formatearFecha(actividadSeleccionada.FechaInicio)}</p>
 
             {feedbacksActividad.length > 0 && (
               <div className="promedio-calificacion">
-                <p>
-                  <strong>⭐ Promedio:</strong> {calcularPromedioCalificacion()} / 5
-                </p>
+                <p><strong>⭐ Promedio:</strong> {calcularPromedioCalificacion()} / 5</p>
               </div>
             )}
 
@@ -279,34 +290,19 @@ export default function Actividades({ setContenidoActual }) {
               ) : (
                 feedbacksActividad.map((fb, index) => (
                   <div key={index} className="feedback-item">
-                    <p>
-                      <strong>{fb.usuario?.Nombre || "Anónimo"}:</strong>{" "}
-                      {fb.ComentarioFeedback}
-                    </p>
-                    <div className="feedback-stars">
-                      {"⭐".repeat(fb.Calificacion || 0)}
-                    </div>
-                    <small className="feedback-fecha">
-                      {formatearFecha(fb.FechaEnvio)}
-                    </small>
+                    <p><strong>{fb.usuario?.Nombre || "Anónimo"}:</strong> {fb.ComentarioFeedback}</p>
+                    <div className="feedback-stars">{"⭐".repeat(fb.Calificacion || 0)}</div>
+                    <small className="feedback-fecha">{formatearFecha(fb.FechaEnvio)}</small>
                   </div>
                 ))
               )}
             </div>
 
-            {puedeComentar ? (
-              !mostrarFeedback && (
-                <button
-                  className="btn-feedback"
-                  onClick={() => setMostrarFeedback(true)}
-                >
-                  📝 Dar Feedback
-                </button>
-              )
-            ) : (
-              <p className="text-muted">
-                🕒 Los comentarios se habilitan durante la actividad.
-              </p>
+            {puedeComentar && !mostrarFeedback && (
+              <button className="btn-feedback" onClick={() => setMostrarFeedback(true)}>📝 Dar Feedback</button>
+            )}
+            {!puedeComentar && (
+              <p className="text-muted">🕒 Los comentarios se habilitan durante la actividad.</p>
             )}
 
             {mostrarFeedback && (
@@ -330,9 +326,7 @@ export default function Actividades({ setContenidoActual }) {
                 />
                 <div className="feedback-buttons">
                   <button onClick={enviarFeedback}>Enviar</button>
-                  <button onClick={() => setMostrarFeedback(false)}>
-                    Cancelar
-                  </button>
+                  <button onClick={() => setMostrarFeedback(false)}>Cancelar</button>
                 </div>
               </div>
             )}

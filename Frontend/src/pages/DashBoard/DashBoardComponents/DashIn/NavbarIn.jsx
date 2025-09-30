@@ -56,7 +56,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
   };
 
   useEffect(() => {
-    const socket = io("http://localhost:3001");
+    const socket = io("http://localhost:3002");
 
     socket.on("connect", () => {
       console.log("✅ Conectado al socket:", socket.id);

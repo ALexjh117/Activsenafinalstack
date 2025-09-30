@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "./styles/AprobarEventos.css";
 import { useNavigate } from "react-router-dom";
+import "./styles/AprobarEventos.css";
 
 // Interfaces
 interface Usuario {
@@ -54,9 +54,7 @@ const MisEventos: React.FC = () => {
 
       const res = await axios.get(
         "https://render-hhyo.onrender.com/api/planificacionevento/mis-eventos",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
 
       setMisEventos(res.data);
@@ -72,21 +70,16 @@ const MisEventos: React.FC = () => {
 
   return (
     <div className="mis-eventos-container">
-<<<<<<< HEAD
-      <h2 className="mis-eventos-title">📋 Mis eventos planificados</h2>
-
-=======
       <h2 className="mis-eventos-title">Eventos planificados</h2>
->>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
       <table className="mis-eventos-tabla">
         <thead>
           <tr>
-            <th className="th-text">Evento</th>
-            <th className="th-text">Fecha</th>
-            <th className="th-text">Lugar</th>
-            <th className="th-text">Gestionado por</th>
-            <th className="th-text">Estado</th>
-            <th className="th-text">Imagen</th>
+            <th>Evento</th>
+            <th>Fecha</th>
+            <th>Lugar</th>
+            <th>Gestionado por</th>
+            <th>Estado</th>
+            <th>Imagen</th>
           </tr>
         </thead>
         <tbody>
@@ -95,67 +88,36 @@ const MisEventos: React.FC = () => {
               <td>{evento.NombreEvento}</td>
               <td>{new Date(evento.FechaEvento).toLocaleDateString()}</td>
               <td>{evento.LugarDeEvento}</td>
-<<<<<<< HEAD
-
-              {/* Estado del evento */}
-              <td>
-                {evento.gestionEvento?.Aprobar === "Aprobado" ? (
-                  <span className="estado-aprobado">✅ Aprobado</span>
-                ) : evento.gestionEvento?.Aprobar === "Pendiente" ? (
-                  <span className="estado-pendiente">⏳ Pendiente</span>
-                ) : (
-                  <button
-                    className="btn-ver-rechazo"
-                    onClick={() =>
-                      abrirModal(
-                        evento.gestionEvento?.MotivoRechazo ||
-                          "Motivo no especificado"
-                      )
-                    }
-                  >
-                    ❌ Rechazado - Ver detalles
-                  </button>
-                )}
-              </td>
-=======
-              
-
-<td>
-  {evento.gestionEvento?.gestionador
-    ? `${evento.gestionEvento.gestionador.Nombre} ${evento.gestionEvento.gestionador.Apellido}`
-    : "No asignado"}
-</td>
-            <td>
-              {evento.gestionEvento?.Aprobar === "Aprobado" ? (
-                <span className="estado-aprobado">Aprobado</span>
-              ) : evento.gestionEvento?.Aprobar === "Pendiente" ? (
-                <span className="estado-pendiente">Pendiente</span>
-              ) : (
-                <button
-              className="btn-ver-rechazo"
-              onClick={() => abrirModal(evento.gestionEvento?.MotivoRechazo || "Motivo no especificado")}
-            >
-              Rechazado-Ver detalles
-            </button>
-              )}
-            </td>
->>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
-
-              {/* Gestionador */}
               <td>
                 {evento.gestionEvento?.gestionador
                   ? `${evento.gestionEvento.gestionador.Nombre} ${evento.gestionEvento.gestionador.Apellido}`
                   : "No asignado"}
               </td>
-
-              {/* Imagen */}
+              <td>
+                {evento.gestionEvento?.Aprobar === "Aprobado" ? (
+                  <span className="estado-aprobado">Aprobado</span>
+                ) : evento.gestionEvento?.Aprobar === "Pendiente" ? (
+                  <span className="estado-pendiente">Pendiente</span>
+                ) : (
+                  <button
+                    className="btn-ver-rechazo"
+                    onClick={() =>
+                      abrirModal(
+                        evento.gestionEvento?.MotivoRechazo || "Motivo no especificado"
+                      )
+                    }
+                  >
+                    Rechazado - Ver detalles
+                  </button>
+                )}
+              </td>
               <td>
                 {evento.ImagenEvento ? (
                   <img
                     src={
                       evento.ImagenEvento.startsWith("http")
-                        ? evento.ImagenEvento // ✅ Cloudinary o URL externa
-                        : `https://render-hhyo.onrender.com/uploads/${evento.ImagenEvento}` // ✅ Render backend
+                        ? evento.ImagenEvento
+                        : `https://render-hhyo.onrender.com/uploads/${evento.ImagenEvento}`
                     }
                     alt="Evento"
                     className="miniatura-img"
@@ -171,35 +133,18 @@ const MisEventos: React.FC = () => {
 
       {/* Modal de rechazo */}
       {modalAbierto && (
-<<<<<<< HEAD
         <div className="modal-overlay">
           <div className="modal-contenido">
             <h3>📌 Motivo del Rechazo</h3>
             <p>{motivoActual}</p>
-=======
-  <div className="modal-overlay">
-    <div className="modal-contenido">
-      <h3>📌 Motivo del Rechazo</h3>
-      <p>{motivoActual}</p>
-
-      <div className="modal-btnss">
-        <button className="btn2apr" onClick={cerrarModal}>Cerrar</button>
-        <button className="btn1apr" onClick={() => navigate("/planevento")}>
-          Planificar de nuevo
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-
->>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
-
-            <button className="btn2apr" onClick={cerrarModal}>
-              Cerrar
-            </button>
-            <button className="btn1apr" onClick={() => navigate("/planevento")}>
-              Planificar de nuevo
-            </button>
+            <div className="modal-btnss">
+              <button className="btn2apr" onClick={cerrarModal}>
+                Cerrar
+              </button>
+              <button className="btn1apr" onClick={() => navigate("/planevento")}>
+                Planificar de nuevo
+              </button>
+            </div>
           </div>
         </div>
       )}

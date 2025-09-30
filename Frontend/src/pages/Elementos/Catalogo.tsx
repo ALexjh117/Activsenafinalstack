@@ -33,7 +33,7 @@ const CatalogoDisponible = () => {
 
   return (
     <div className="catalogo-container">
-      <h2 className="catalogo-titulo">Elementos Disponibles888 paradddd Alquiler</h2>
+      <h2 className="catalogo-titulo">Elementos Disponibles paradddd Alquiler</h2>
       <div className="grid-catalogo">
         {catalogo.map((el) => (
           <div key={el.IdElemento} className="card-elemento">

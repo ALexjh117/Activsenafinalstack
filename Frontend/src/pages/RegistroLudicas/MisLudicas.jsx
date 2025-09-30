@@ -111,6 +111,7 @@ export default function MisActividadesYLudicas() {
             </div>
 
             {asistencias[act.IdActividad] && (
+             
               <div className="tabla-asistencia">
                 <table>
                   <thead>
@@ -126,15 +127,17 @@ export default function MisActividadesYLudicas() {
                     </tr>
                   </thead>
                   <tbody>
+                    
                     {asistencias[act.IdActividad].map((a, i) => (
                       <tr key={i}>
                         <td>{a.usuario?.Nombre} {a.usuario?.Apellido}</td>
                         <td>{a.usuario?.Correo}</td>
-                        <td>{a.usuario?.aprendiz?.Ficha || "—"}</td>
-                        <td>{a.usuario?.aprendiz?.ProgramaFormacion || "—"}</td>
-                        <td>{a.usuario?.aprendiz?.Jornada || "—"}</td>
+                        <td>{a.usuario?.perfilAprendiz?.Ficha || "—"}</td>
+                        <td>{a.usuario?.perfilAprendiz?.ProgramaFormacion || "—"}</td>
+                        <td>{a.usuario?.perfilAprendiz?.Jornada || "—"}</td>
                         <td>{a.QREntrada ? new Date(a.QREntrada).toLocaleTimeString() : "—"}</td>
                         <td>{a.QRSalida ? new Date(a.QRSalida).toLocaleTimeString() : "—"}</td>
+                        
                         <td>
                           {a.QREntrada && a.QRSalida
                             ? "✅ Completa"
@@ -145,7 +148,9 @@ export default function MisActividadesYLudicas() {
                       </tr>
                     ))}
                   </tbody>
+                
                 </table>
+                
               </div>
             )}
           </div>
@@ -190,9 +195,10 @@ export default function MisActividadesYLudicas() {
                       <tr key={i}>
                         <td>{a.usuario?.Nombre} {a.usuario?.Apellido}</td>
                         <td>{a.usuario?.Correo}</td>
-                        <td>{a.usuario?.aprendiz?.Ficha || "—"}</td>
-                        <td>{a.usuario?.aprendiz?.ProgramaFormacion || "—"}</td>
-                        <td>{a.usuario?.aprendiz?.Jornada || "—"}</td>
+                        <td>{a.usuario?.perfilAprendiz?.Ficha || "—"}</td>
+                        <td>{a.usuario?.perfilAprendiz?.ProgramaFormacion || "—"}</td>
+                        
+                        <td>{a.usuario?.perfilAprendiz?.Jornada || "—"}</td>
                         <td>{a.QREntrada ? new Date(a.QREntrada).toLocaleTimeString() : "—"}</td>
                         <td>{a.QRSalida ? new Date(a.QRSalida).toLocaleTimeString() : "—"}</td>
                         <td>

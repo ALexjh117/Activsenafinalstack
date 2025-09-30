@@ -670,3 +670,29 @@ body, html {
   color: #374151;
   line-height: 1.4;
 }
+.cal-event-indicators {
+  display: flex;
+  gap: 3px;
+  margin-top: 2px;
+  justify-content: center;
+}
+
+.cal-event-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cal-event-dot.actividad {
+  background-color: #3498db; /* azul para actividades */
+}
+
+.cal-event-dot.evento {
+  background-color: #e67e22; /* naranja para eventos */
+}
+
+.cal-event-dot:hover {
+  transform: scale(1.3);
+}

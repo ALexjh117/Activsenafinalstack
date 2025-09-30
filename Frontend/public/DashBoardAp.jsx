@@ -103,8 +103,11 @@ export default function DashBoard() {
         <NavbarAp
           toggleMenu={() => setMenuAbierto(!menuAbierto)}
           setContenidoActual={setContenidoActual}
+          
           cerrarSesion={cerrarSesion}
+          
         />
+        
 
         {contenidoActual === "actividades" && <Actividades />}
         {contenidoActual === "aplicacion" && <Aplicacion />}

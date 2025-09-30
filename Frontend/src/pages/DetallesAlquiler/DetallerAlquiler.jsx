@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./styles/DetallesAlquiler.css"
-const BACKEND_URL = "http://localhost:3001";
+const BACKEND_URL = "https://render-hhyo.onrender.com/api";
 
 const DetallesAlquiler = () => {
   const [registrosAlquiler, setRegistrosAlquiler] = useState([]);
@@ -16,7 +16,7 @@ const DetallesAlquiler = () => {
     const cargarAlquileres = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`${BACKEND_URL}/api/alquilerelementos`, {
+        const res = await fetch(`${BACKEND_URL}/alquilerelementos`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();

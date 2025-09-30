@@ -1,254 +1,232 @@
-/* ========== FORMULARIO PERFIL INSTRUCTOR ========== */
-.contenedor-form-perfil {
-  max-width: 1000px;
-  margin: 40px auto;
-  padding: 32px;
-  background: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  font-family: 'Segoe UI', sans-serif;
-  border: 1px solid #e6e9ef;
+/* ========== BODY Y FONDO GENERAL ========== */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #f5f7fa, #e9f0f7);
+  color: #333;
 }
 
-.contenedor-form-perfil h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 28px;
-  color: #2d3436;
-  font-weight: 700;
-  border-bottom: 3px solid #5eb319;
-  display: inline-block;
-  padding-bottom: 6px;
-}
-
-form {
+/* ========== CONTENEDOR PRINCIPAL ========== */
+.activity-wrapper {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 50px 20px;
+  min-height: 100vh;
 }
 
-form label {
-  margin: 10px 0 6px;
-  font-weight: 600;
-  color: #34495e;
+/* ========== FORMULARIO PERFIL ========== */
+.activity-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  width: 100%;
+  max-width: 850px;
+  transition: all 0.3s ease;
 }
 
-form input[type="text"],
-form input[type="file"] {
-  padding: 14px;
-  border: 1px solid #dcdfe6;
+.activity-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.15);
+}
+
+.activity-container h2 {
+  text-align: center;
+  font-size: 2.8rem;
+  color: #2d7a4b;
+  margin-bottom: 25px;
+  font-weight: 700;
+  position: relative;
+}
+
+.activity-container h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #5eb319;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* ========== IMAGEN PERFIL ========== */
+.image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.preview-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 4px solid #5eb319;
+  object-fit: cover;
+  margin-bottom: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.preview-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+
+.image-input {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #5eb319;
+  background: #eefaf2;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.image-input:hover {
+  background: #d9f0d6;
+}
+
+/* ========== INPUTS, SELECT, TEXTAREA ========== */
+.activity-container input,
+.activity-container select,
+.activity-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 18px;
   border-radius: 12px;
+  border: 1px solid #d0d7de;
   font-size: 1rem;
-  margin-bottom: 20px;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   background: #fafafa;
 }
 
-form input:focus {
+.activity-container input:focus,
+.activity-container select:focus,
+.activity-container textarea:focus {
   border-color: #5eb319;
-  background: #fff;
+  box-shadow: 0 0 8px rgba(94,179,25,0.2);
   outline: none;
-  box-shadow: 0 0 6px rgba(94, 179, 25, 0.25);
+  background: #fff;
 }
 
-button[type="submit"] {
-  padding: 14px;
+/* ========== BOTÓN REGISTRAR ========== */
+.btnregisterxd {
   background: linear-gradient(135deg, #5eb319, #4b8e15);
-  color: white;
-  font-size: 1.05rem;
-  font-weight: bold;
+  color: #fff;
   border: none;
   border-radius: 12px;
+  padding: 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: transform 0.2s ease, background 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-button[type="submit"]:hover {
-  background: linear-gradient(135deg, #6fc91f, #4b8e15);
-  transform: translateY(-2px);
+.btnregisterxd:hover {
+  background: linear-gradient(135deg, #6fc91f, #3f6b12);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
 }
 
-.mensaje-form {
-  margin-top: 18px;
-  text-align: center;
-  font-weight: bold;
-  color: #27ae60;
-}
-
-
-/* ========== FILTROS DE BÚSQUEDA ========== */
-.filtros {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin: 30px 0;
-}
-
-.filtros input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 12px;
-  border: 1px solid #dcdfe6;
-  font-size: 1rem;
-  transition: border 0.2s, box-shadow 0.2s;
-  background: #fafafa;
-}
-
-.filtros input:focus {
-  border-color: #5eb319;
-  outline: none;
-  box-shadow: 0 0 6px rgba(94, 179, 25, 0.25);
-}
-
-input::placeholder {
-  color: #aaa;
-}
-
-
-/* ========== LISTADO DE INSTRUCTORES ========== */
+/* ========== GRID DE INSTRUCTORES ========== */
 .grid-instructores {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.8rem;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 25px;
 }
 
 .card-instructor {
   background: #fff;
-  border: 1px solid #e6e9ef;
-  border-radius: 16px;
+  border-radius: 18px;
   padding: 24px;
   text-align: center;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
 }
 
 .card-instructor:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.15);
 }
 
 .imagen-instructor {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 16px;
   border: 3px solid #5eb319;
 }
 
 .card-instructor h3 {
-  margin-bottom: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
   color: #2d3436;
-  font-size: 1.2rem;
   font-weight: 700;
 }
 
 .card-instructor p {
   font-size: 0.95rem;
   color: #555;
-  margin-bottom: 6px;
 }
 
-.card-instructor p strong {
-  color: #2c3e50;
-}
-
-
-/* ========== PREVIEW IMAGEN ========== */
-.preview-img {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin: 14px auto;
-  border: 3px solid #5eb319;
-  display: block;
-}
-
-
-/* ========== BOTÓN VER MÁS ========== */
-.btn-ver-mas {
-  margin-top: 14px;
-  padding: 10px 18px;
-  background: #5eb319;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.btn-ver-mas:hover {
-  background: #4b8e15;
-  transform: translateY(-2px);
-}
-
-
-/* ========== MODAL PERFIL INSTRUCTOR ========== */
+/* ========== MODAL ========== */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.45);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999;
+  animation: fadeIn 0.3s ease;
 }
 
 .modal-content {
-  background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
-  padding: 35px 25px;
-  border-radius: 22px;
-  width: 420px;
-  max-width: 95%;
+  background: #fff;
+  border-radius: 20px;
+  padding: 35px;
+  width: 90%;
+  max-width: 550px;
   text-align: center;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.25);
   position: relative;
-  animation: zoomIn 0.5s ease-out;
+  transition: all 0.3s ease;
 }
 
 .modal-content img {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
   border-radius: 50%;
+  border: 4px solid #5eb319;
   margin-bottom: 18px;
-  border: 5px solid #fff;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
 .modal-content h2 {
-  margin: 12px 0;
-  font-size: 28px;
-  color: #fff;
-  font-weight: bold;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #2d7a4b;
 }
 
 .modal-content p {
-  margin: 10px 0;
-  font-size: 16px;
-  color: #f9f9f9;
-}
-
-.modal-content p strong {
-  color: #ffe082;
-  font-weight: 700;
+  font-size: 1rem;
+  color: #555;
 }
 
 .close {
   position: absolute;
-  top: 14px;
+  top: 15px;
   right: 20px;
-  font-size: 24px;
+  font-size: 26px;
   cursor: pointer;
-  color: #fff;
-  font-weight: bold;
-  transition: transform 0.3s ease, color 0.3s ease;
+  color: #5eb319;
+  transition: all 0.3s ease;
 }
 
 .close:hover {
@@ -256,205 +234,13 @@ input::placeholder {
   transform: scale(1.2);
 }
 
-
-/* ========== PERFIL ACTUAL ========== */
-.mi-perfil-actual {
-  text-align: center;
-  margin-bottom: 2rem;
-  padding: 1.8rem;
-  background: #f9fafc;
-  border-radius: 14px;
-  border: 1px solid #e6e9ef;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+/* Animaciones */
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
 }
 
-.imagen-perfil-propia {
-  width: 110px;
-  height: 110px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 12px;
-  border: 3px solid #5eb319;
-}
-/* === Fondo con gradiente elegante === */
-.body-registro {
-  background: linear-gradient(135deg, #ffffff, #fdf5f3);
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
-
-/* === Contenedor principal === */
-.activity-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 20px;
-  background-color: #f5f6f8;
-  min-height: 100vh;
-}
-
-/* === Contenedor del formulario === */
-.activity-container {
-  background-color: white;
-  padding: 40px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgb(255, 255, 255);
-  width: 100%;
-  max-width: 800px;   /* ⬅️ Más ancho que antes */
-}
-
-/* Título */
-.activity-container h2 {
-  text-align: center;
-  color: #5eb319;
-  margin-bottom: 15px;
-  font-size: 3rem;   /* ⬅️ Más grande */
-  font-weight: 700;
-}
-
-/* === Imagen debajo del título === */
-.image-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 25px;
-  width: 100%;
-}
-
-.preview-image {
-  width: 30%;         
-  max-width: 300px;    /* ⬅️ Imagen más pequeña */
-  height: auto;        
-  border-radius: 10px;
-  border: 2px solid #eee;
-  object-fit: cover;
-  margin-bottom: 10px;
-}
-
-/* Input de carga de imagen */
-.image-input {
-  margin-top: 8px;
-  padding: 8px;
-  border: 1px solid #5eb319;
-  border-radius: 6px;
-  background-color: #eef3f8;
-  cursor: pointer;
-  font-size: 14px;
-  width: 1000%;
-  max-width: 1000px;
-  transition: background-color 0.3s ease;
-}
-
-.image-input:hover {
-  background-color: #d9e7f3;
-}
-
-/* Inputs, select y textarea */
-.activity-container label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 6px;
-  color: #333;
-}
-
-.activity-container input,
-.activity-container select,
-.activity-container textarea {
-  width: 100%;          /* Ocupan todo el ancho del recuadro */
-  padding: 14px;
-  margin-bottom: 18px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
-  box-sizing: border-box;
-}
-
-textarea {
-  resize: none;
-}
-
-/* Contenedor para horas */
-.time-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.time-container label {
-  flex: 1;
-}
-
-/* Botón registrar */
-.btnregisterxd {
-  background: #5eb319;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s;
-  width: 100%;
-}
-
-.btnregisterxd:hover {
-  background: #4a9314;
-}
-
-/* === Modal === */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 30px;
-  border-radius: 15px;
-  max-width: 600px;
-  width: 90%;
-  text-align: center;
-}
-
-.modal-content h3 {
-  margin-bottom: 15px;
-  color: #004080;
-}
-
-.modal-buttons {
-  margin-top: 20px;
-  display: flex;
-  justify-content: space-around;
-}
-
-.modal-buttons button {
-  padding: 10px 20px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.modal-buttons button:first-child {
-  background-color: #28a745;
-  color: white;
-}
-
-.modal-buttons button:last-child {
-  background-color: #dc3545;
-  color: white;
+@keyframes zoomIn {
+  from {transform: scale(0);}
+  to {transform: scale(1);}
 }

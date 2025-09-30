@@ -69,6 +69,8 @@ export default function UserViewAp({ setContenidoActual }) {
   }, []);
 
   return (
+    <>
+    <h1 style={{marginLeft:60 }}>Bienvenido De nuevo <strong  className="text-bienvenida">Administrador</strong> </h1>
     <section className="UserContenedor">
       {!usuario ? (
         <p>Cargando datos...</p>
@@ -210,5 +212,6 @@ export default function UserViewAp({ setContenidoActual }) {
         </div>
       )}
     </section>
+    </>
   );
 }

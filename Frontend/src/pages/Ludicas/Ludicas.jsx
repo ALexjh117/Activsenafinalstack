@@ -10,6 +10,8 @@ const ListaLudicas = () => {
   const [reacciones, setReacciones] = useState({});
   const [miReaccion, setMiReaccion] = useState({});
   const [animando, setAnimando] = useState({});
+  const [paginaActual, setPaginaActual] = useState(1);
+  const elementosPorPagina = 5;
 
   useEffect(() => {
     axios.get('https://render-hhyo.onrender.com/api/ludica')
@@ -83,6 +85,12 @@ const ListaLudicas = () => {
     return coincideNombre && coincideTipo;
   });
 
+  // ====== PAGINACIÓN ======
+  const totalPaginas = Math.ceil(ludicasFiltradas.length / elementosPorPagina);
+  const indexInicio = (paginaActual - 1) * elementosPorPagina;
+  const indexFin = indexInicio + elementosPorPagina;
+  const ludicasPaginadas = ludicasFiltradas.slice(indexInicio, indexFin);
+
   return (
     <div className="ludicas-container">
       <header className="ludicas-header">
@@ -106,7 +114,10 @@ const ListaLudicas = () => {
             <button
               key={tipo}
               className={`categoria-btn ${tipoSeleccionado === tipo ? 'active' : ''}`}
-              onClick={() => setTipoSeleccionado(tipo)}
+              onClick={() => {
+                setTipoSeleccionado(tipo);
+                setPaginaActual(1); // reinicia a la página 1 al cambiar filtro
+              }}
             >
               {tipo}
             </button>
@@ -115,7 +126,7 @@ const ListaLudicas = () => {
       </header>
 
       <section className="ludicas-grid">
-        {ludicasFiltradas.map((ludica) => (
+        {ludicasPaginadas.map((ludica) => (
           <div className="ludicas-card" key={ludica.IdActividad}>
             <div className="card-image-container">
               <img
@@ -158,6 +169,25 @@ const ListaLudicas = () => {
         ))}
       </section>
 
+      {/* PAGINACIÓN */}
+      {totalPaginas > 1 && (
+        <div className="pagination">
+          <button
+            disabled={paginaActual === 1}
+            onClick={() => setPaginaActual(prev => prev - 1)}
+          >
+            ◀ Anterior
+          </button>
+          <span>Página {paginaActual} de {totalPaginas}</span>
+          <button
+            disabled={paginaActual === totalPaginas}
+            onClick={() => setPaginaActual(prev => prev + 1)}
+          >
+            Siguiente ▶
+          </button>
+        </div>
+      )}
+
       {/* MODAL */}
       {ludicaSeleccionada && (
         <div className="modal-overlay" onClick={() => setLudicaSeleccionada(null)}>
@@ -177,8 +207,7 @@ const ListaLudicas = () => {
         </div>
       )}
 
-      <footer className="ludicas-footer">
-      </footer>
+      <footer className="ludicas-footer"></footer>
     </div>
   );
 };

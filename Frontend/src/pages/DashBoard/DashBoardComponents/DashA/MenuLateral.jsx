@@ -15,11 +15,11 @@ import {
   FaBoxOpen,
   FaChevronDown,
   FaChevronRight,
-<<<<<<< HEAD
+
   FaRegCaretSquareRight,
-=======
+
   FaRegUserCircle
->>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
+
 } from "react-icons/fa";
 
 import { PiPersonSimpleThrowLight, PiCodeBlockFill, PiBoxArrowUpThin } from "react-icons/pi";
@@ -30,7 +30,7 @@ import logo from "../img/logo.png";
 import avatar from "../img/avatar.png";
 import "../DashA/style/MenuLateral.css"
 import { useAuth } from "../../../../Context/AuthContext";
-
+import { Toaster, toast } from "react-hot-toast";
 
 export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
@@ -134,9 +134,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
               <button onClick={() => setContenidoActual("gestioncatalogo")} className="opciondash">
                 <TfiDropbox className="iconodash" /> Elementos Subidos
               </button>
-              <button onClick={() => setContenidoActual("formulariocatalogo")} className="opciondash">
-                <PiBoxArrowUpThin className="iconodash" /> SubirCarrusel
-              </button>
+             
 
                <button onClick={() => setContenidoActual("registrarelemento")} className="opciondash">
                 <PiBoxArrowUpThin className="iconodash" /> SubirElemento
@@ -236,9 +234,16 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
 </div> */}
 
        
-        <button className="btn-cerrar-sesion" onClick={logout}>
-                  <FaRegCaretSquareRight   className="icono-cerrar" /> Cerrar Sesión
-        </button>
+       <button
+         className="btn-cerrar-sesion"
+         onClick={() => {
+           logout(); 
+           toast.success("Sesión cerrada correctamente 👋");
+         }}
+       >
+         <FaRegCaretSquareRight className="icono-cerrar" /> 
+         Cerrar Sesión
+       </button>
       </nav>
     </aside>
   );

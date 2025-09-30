@@ -14,12 +14,12 @@ import {
   FaChevronDown,
   FaChevronRight,
   FaTimes,
-<<<<<<< HEAD
+
   FaRegCaretSquareRight ,
-=======
+
   FaRegComments,
   FaRegUserCircle
->>>>>>> 29cecb6ff0c685f83e709b765c9de37b8f19c5af
+
 } from "react-icons/fa";
 
 import { MdEventAvailable, MdOutlinePermContactCalendar  } from "react-icons/md";
@@ -35,6 +35,8 @@ import "../DashA/style/MenuLateral.css";
 
 
 import { useAuth } from "../../../../Context/AuthContext";
+import { Toaster, toast } from "react-hot-toast";
+
 
 export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
@@ -154,9 +156,18 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           )}
         </div>
       </nav>
-      <button className="btn-cerrar-sesion" onClick={logout}>
-          <FaRegCaretSquareRight   className="icono-cerrar" /> Cerrar Sesión
-      </button>
+      <button
+  className="btn-cerrar-sesion"
+  onClick={() => {
+    logout(); 
+    toast.success("Sesión cerrada correctamente 👋");
+  }}
+>
+  <FaRegCaretSquareRight className="icono-cerrar" /> 
+  Cerrar Sesión
+</button>
+
+      
     </aside>
   );
 }

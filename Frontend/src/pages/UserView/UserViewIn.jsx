@@ -49,6 +49,8 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
   }, [actualizarPerfil]);
 
   return (
+    <>
+       <h1 style={{marginLeft:60 }}>Bienvenido De nuevo <strong  className="text-bienvenida">Instructor</strong> </h1>
     <section className="UserContenedor">
       {!usuario ? (
         <p>Cargando datos...</p>
@@ -60,7 +62,7 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
                 src={
                   usuario.perfilInstructor.imagen.startsWith("data:image")
                     ? usuario.perfilInstructor.imagen
-                    : `http://localhost:3001${usuario.perfilInstructor.imagen}`
+                    : `http://localhost:3002${usuario.perfilInstructor.imagen}`
                 }
                 alt="Foto del instructor"
                 className="UserProfileAvatar"
@@ -211,5 +213,6 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
         </div>
       )}
     </section>
+    </>
   );
 }

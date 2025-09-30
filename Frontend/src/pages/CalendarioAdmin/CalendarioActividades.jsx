@@ -184,33 +184,33 @@ const CalendarioAp = () => {
       days.push(<div key={`empty-${i}`} className="cal-dia-vacio"></div>);
     }
 
-    for (let i = 1; i <= diasEnMes; i++) {
-      const event = calendarEvents.find((e) => e.day === i);
-      const isToday = i === new Date().getDate() && currentDate.getMonth() === new Date().getMonth();
-      if (event) {
-        const fullEvent = events.find((e) => e.id === event.eventId);
-        const isClicked = clickedNotifications.includes(fullEvent.id);
-        days.push(
-          <div key={`day-${i}`} className={`cal-dia cal-evento ${isToday ? 'cal-hoy' : ''}`}>
-            <div onClick={() => openEventModal(fullEvent)} className="cal-dia-clickable">
-              <span className="cal-dia-numero">{i}</span>
-              <span className="cal-nombre-evento">{event.title}</span>
-            </div>
-            <FaBell
-              className={`cal-noti-icon ${isClicked ? 'cal-clicked' : ''}`}
-              onClick={() => handleNotificationClick(fullEvent.id)}
-              title="Notificación"
-            />
-          </div>
-        );
-      } else {
-        days.push(
-          <div key={i} className="cal-dia">
-            <span className="cal-dia-numero">{i}</span>
-          </div>
-        );
-      }
-    }
+   for (let i = 1; i <= diasEnMes; i++) {
+  const eventsOfDay = calendarEvents.filter(e => e.day === i);
+  const isToday = i === new Date().getDate() && currentDate.getMonth() === new Date().getMonth();
+
+  days.push(
+    <div
+      key={`day-${i}`}
+      className={`cal-dia ${isToday ? 'cal-hoy' : ''}`}
+      title={eventsOfDay.map(e => e.title).join('\n')} // tooltip con títulos
+    >
+      <span className="cal-dia-numero">{i}</span>
+      <div className="cal-event-indicators">
+        {eventsOfDay.map(e => {
+          const fullEvent = events.find(ev => ev.id === e.eventId);
+          return (
+            <span
+              key={e.eventId}
+              className={`cal-event-dot ${fullEvent.tipo}`}
+              onClick={() => openEventModal(fullEvent)}
+            ></span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 
     return days;
   };
@@ -225,7 +225,7 @@ const CalendarioAp = () => {
 
           {/* Botón de notificaciones */}
           <button className={`cal-notifications-btn ${showNotifications ? 'cal-active' : ''}`} onClick={toggleNotifications}>
-            <i className="cal-bell-icon">🔔</i>
+            <i className="cal-bell-icon">📅</i>
             <span className="cal-notification-badge">{events.length}</span>
           </button>
 

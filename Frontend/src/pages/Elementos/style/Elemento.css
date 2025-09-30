@@ -1,6 +1,8 @@
 .formulario-subir {
+
   max-width: 500px;
-  margin: auto;
+margin-top: 30px;
+margin-left: 450px;
   padding: 1rem;
   border: 1px solid #ccc;
   border-radius: 12px;
@@ -11,13 +13,15 @@
   display: block;
   margin-bottom: 10px;
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .formulario-subir input[type="text"],
 .formulario-subir textarea,
 .formulario-subir input[type="file"] {
   width: 100%;
-  padding: 8px;
+  margin-top: 30px;
+  padding: 10px;
   margin-bottom: 1rem;
 }
 

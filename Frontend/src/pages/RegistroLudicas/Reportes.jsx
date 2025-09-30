@@ -44,7 +44,7 @@ export default function ReporteAsistencia({ actividadId, tokenOverride }) {
     setError(null);
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/asistencia/actividad/${id}`,
+        `https://render-hhyo.onrender.com/api/asistencia/actividad/${id}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setAsistencias(res.data || []);
@@ -64,8 +64,8 @@ export default function ReporteAsistencia({ actividadId, tokenOverride }) {
     const porFecha = {};
 
     rows.forEach((r) => {
-      const ficha = r.usuario?.aprendiz?.Ficha || "—";
-      const programa = r.usuario?.aprendiz?.ProgramaFormacion || "—";
+      const ficha = r.usuario?.perfilAprendiz?.Ficha || "—";
+      const programa = r.usuario?.perfilAprendiz?.ProgramaFormacion || "—";
 
       porFicha[ficha] = (porFicha[ficha] || 0) + 1;
       porPrograma[programa] = (porPrograma[programa] || 0) + 1;
@@ -95,9 +95,9 @@ export default function ReporteAsistencia({ actividadId, tokenOverride }) {
     const rows = asistencias.map((r) => ({
       Nombre: `${r.usuario?.Nombre || ""} ${r.usuario?.Apellido || ""}`.trim(),
       Correo: r.usuario?.Correo || "",
-      Ficha: r.usuario?.aprendiz?.Ficha || "",
-      Programa: r.usuario?.aprendiz?.ProgramaFormacion || "",
-      Jornada: r.usuario?.aprendiz?.Jornada || "",
+      Ficha: r.usuario?.perfilAprendiz?.Ficha || "",
+      Programa: r.usuario?.perfilAprendiz?.ProgramaFormacion || "",
+      Jornada: r.usuario?.perfilAprendiz?.Jornada || "",
       Entrada: r.QREntrada || "",
       Salida: r.QRSalida || "",
       Estado: r.QREntrada && r.QRSalida ? "Completa" : r.QREntrada ? "Solo entrada" : "Sin registro",
@@ -237,8 +237,8 @@ export default function ReporteAsistencia({ actividadId, tokenOverride }) {
                   <tr key={i}>
                     <td>{`${r.usuario?.Nombre || ""} ${r.usuario?.Apellido || ""}`}</td>
                     <td>{r.usuario?.Correo || ""}</td>
-                    <td>{r.usuario?.aprendiz?.Ficha || "—"}</td>
-                    <td>{r.usuario?.aprendiz?.ProgramaFormacion || "—"}</td>
+                    <td>{r.usuario?.perfilAprendiz?.Ficha || "—"}</td>
+                    <td>{r.usuario?.perfilAprendiz?.ProgramaFormacion || "—"}</td>
                     <td>{r.QREntrada ? new Date(r.QREntrada).toLocaleTimeString() : "—"}</td>
                     <td>{r.QRSalida ? new Date(r.QRSalida).toLocaleTimeString() : "—"}</td>
                   </tr>

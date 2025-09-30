@@ -145,21 +145,7 @@ localStorage.setItem("token", token);
         </div>
       </div>
 
-      <div className="contenedor-opciones-inicio contenedor-opciones-inicio-desktop">
-        <label className="etiqueta-checkbox-inicio">
-          <input
-            type="checkbox"
-            name="recordarme"
-            className="checkbox-inicio"
-            checked={datosFormulario.recordarme}
-            onChange={manejarCambio}
-          />
-          <span className="texto-checkbox-inicio">Recordarme</span>
-        </label>
-        <a href="#" className="enlace-recuperar-inicio">
-          ¿Olvidaste tu contraseña?
-        </a>
-      </div>
+      
 
       <button type="submit" className="boton-inicio-sesion" disabled={cargando}>
         {cargando ? "Iniciando sesión..." : "Iniciar Sesión"}
