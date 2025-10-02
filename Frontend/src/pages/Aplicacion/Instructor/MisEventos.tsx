@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import AsistentesEvento from "../../Asistencia/Instructor/AsistentesEventos"; // Ajusta la ruta si es necesario
+import AsistentesEvento from "../../Asistencia/Instructor/AsistentesEventos"; 
 import Swal from 'sweetalert2';
+
+import "../styles/MisEventos.css"
+import { MdEvent, MdAccessTime, MdLocationOn, MdGroups, MdBarChart } from "react-icons/md";
+import { FaDoorOpen, FaDoorClosed, FaTimesCircle, FaCheckCircle } from "react-icons/fa";
 
 interface EventoConDatos {
   IdEvento: number;
@@ -225,6 +229,10 @@ if (idsNoConfirmaronPeroAsistieron.length > 0) {
   return (
     <div className="mis-actividades-contenedor">
       <h2>Mis Eventos Creados</h2>
+      <p className="descripcion-registros">
+  Aquí puedes ver tus eventos creados, revisar los registros de asistencia y enviar notificaciones o reportes a los participantes.
+</p>
+
 
       {eventos.length === 0 && <p>No has creado eventos aún.</p>}
 
@@ -232,51 +240,60 @@ if (idsNoConfirmaronPeroAsistieron.length > 0) {
         <div key={evento.IdEvento} className="evento-wrapper">
           <div className="actividad-card">
             <h3>{evento.NombreEvento}</h3>
-            <p>
-              🗓️ {evento.FechaInicio} | ⏰ {evento.HoraInicio} - {evento.HoraFin}
-            </p>
-            <p>📍 {evento.UbicacionEvento}</p>
+      <p>
+  <MdEvent className="icon-sm" /> {evento.FechaInicio} &nbsp; | &nbsp;
+  <MdAccessTime className="icon-sm" /> {evento.HoraInicio} - {evento.HoraFin}
+</p>
+<p><MdLocationOn className="icon-sm" /> {evento.UbicacionEvento}</p>
+
             <p>📝 {evento.DescripcionEvento}</p>
 
-            {evento.QREntrada && (
-              <div className="qr-contenedor">
-                <h4>📥 QR Entrada</h4>
-                <img src={evento.QREntrada} alt="QR Entrada" className="qr-imagen" />
-              </div>
-            )}
+          {evento.QREntrada && (
+  <div className="qr-contenedor">
+    <div className="qr-item">
+      <img src={evento.QREntrada} alt={`QR de entrada - ${evento.NombreEvento}`} className="qr-imagen" />
+      <span className="qr-label"><FaDoorOpen style={{ verticalAlign: 'middle' }} /> Entrada</span>
+    </div>
+  </div>
+)}
 
-            {evento.QRSalida && (
-              <div className="qr-contenedor">
-                <h4>📤 QR Salida</h4>
-                <img src={evento.QRSalida} alt="QR Salida" className="qr-imagen" />
-              </div>
-            )}
+{evento.QRSalida && (
+  <div className="qr-contenedor">
+    <div className="qr-item">
+      <img src={evento.QRSalida} alt={`QR de salida - ${evento.NombreEvento}`} className="qr-imagen" />
+      <span className="qr-label"><FaDoorClosed style={{ verticalAlign: 'middle' }} /> Salida</span>
+    </div>
+  </div>
+)}
 
-            <button
-              className="btn-ver-asistencia"
-              onClick={() => obtenerAsistencias(evento.IdEvento)}
-            >
-              📥 Ver asistencia
-            </button>
+<button
+  type="button"
+  className="btn-ver-asistencia"
+  onClick={() => obtenerAsistencias(evento.IdEvento)}
+  aria-label={`Ver asistencia de ${evento.NombreEvento}`}
+>
+  <MdGroups className="icon-btn" /> Ver asistencia
+</button>
 
-            <button
-              className="btn-ver-asistentes-confirmados"
-              onClick={() =>
-                setMostrarAsistentes((prev) => ({
-                  ...prev,
-                  [evento.IdEvento]: !prev[evento.IdEvento],
-                }))
-              }
-            >
-              👥 {mostrarAsistentes[evento.IdEvento] ? "Ocultar" : "Ver"} asistentes confirmados
-            </button>
+<button
+  type="button"
+  className="btn-ver-asistentes-confirmados"
+  onClick={() =>
+    setMostrarAsistentes((prev) => ({ ...prev, [evento.IdEvento]: !prev[evento.IdEvento] }))
+  }
+  aria-label={`Ver asistentes confirmados ${evento.NombreEvento}`}
+>
+  <MdGroups className="icon-btn" /> {mostrarAsistentes[evento.IdEvento] ? "Ocultar" : "Ver"} asistentes confirmados
+</button>
 
-            <button
-              className="btn-comparar"
-              onClick={() => compararYNotificar(evento.IdEvento)}
-            >
-              📤 Comparar asistencia y notificar
-            </button>
+<button
+  type="button"
+  className="btn-comparar"
+  onClick={() => compararYNotificar(evento.IdEvento)}
+  aria-label={`Comparar asistencia y notificar ${evento.NombreEvento}`}
+>
+  <MdBarChart className="icon-btn" /> Comparar y notificar
+</button>
 
             {mostrarAsistentes[evento.IdEvento] && (
               <AsistentesEvento idEvento={evento.IdEvento} />
@@ -318,13 +335,16 @@ if (idsNoConfirmaronPeroAsistieron.length > 0) {
                             ? new Date(asistente.QRSalida).toLocaleTimeString("es-CO")
                             : "—"}
                         </td>
-                        <td>
-                          {asistente.QREntrada && asistente.QRSalida
-                            ? "✅ Completa"
-                            : asistente.QREntrada
-                            ? "🕓 Solo entrada"
-                            : "❌ Sin registro"}
-                        </td>
+                       <td>
+  {asistente.QREntrada && asistente.QRSalida ? (
+    <span className="estado-contenedor estado-completo"><FaCheckCircle className="icon-sm" /> Completa</span>
+  ) : asistente.QREntrada ? (
+    <span className="estado-contenedor estado-incompleto"><FaDoorOpen className="icon-sm" /> Solo entrada</span>
+  ) : (
+    <span className="estado-contenedor estado-sin-registro"><FaTimesCircle className="icon-sm" /> Sin registro</span>
+  )}
+</td>
+
                       </tr>
                     ))}
                   </tbody>

@@ -110,6 +110,7 @@ localStorage.setItem("token", token);
         <label htmlFor="correo-inicio" className="etiqueta-inicio etiqueta-inicio-desktop">
           Correo Electrónico
         </label>
+       
         
         <div className="contenedor-input-inicio">
           <IconoMail />

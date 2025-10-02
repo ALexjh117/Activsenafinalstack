@@ -11,7 +11,7 @@ export default function AboutComponent() {
         <div className="about-content-home">
           <div className="about-image-home">
 
-           <img src="/img/equipo.avif" alt="Equipo" className='img-home' />
+           <img src="/img/equipo.jpg" alt="Equipo" className='img-home' />
 
       
           </div>

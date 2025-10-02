@@ -50,7 +50,9 @@ export default function InstructorView({ setContenidoActual, actualizarPerfil })
 
   return (
     <>
+    <br />
        <h1 style={{marginLeft:60 }}>Bienvenido De nuevo <strong  className="text-bienvenida">Instructor</strong> </h1>
+       <p className="texto-dash-todos-rol">En este espacio podra hacer la gestion de eventos  supervisar las actividades y más </p>
     <section className="UserContenedor">
       {!usuario ? (
         <p>Cargando datos...</p>

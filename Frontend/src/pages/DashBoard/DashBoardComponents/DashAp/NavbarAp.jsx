@@ -18,7 +18,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
   const [cantidadNoLeidas, setCantidadNoLeidas] = useState(0);
   const [noticiasSindesena, setNoticiasSindesena] = useState([]);
   const [mostrarBanner, setMostrarBanner] = useState(false);
-  const sonidoAlerta = useRef(new Audio("/audio/notificacion.mp3"));
+  const sonidoAlerta = useRef(new Audio("/audio/notificacion2.mp3"));
 
   const idUsuario = JSON.parse(localStorage.getItem("usuario"))?.IdUsuario;
 
@@ -225,25 +225,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
             )}
           </div>
 
-          <section className="usuariodash" style={{ position: "relative" }}>
-            <img src={avatar} alt="Usuariodash" className="avatardash" />
-            <span
-              className="nombredash"
-              style={{ cursor: "pointer" }}
-            >
-              Aprendiz
-            </span>
-
-            {mostrarMenu && (
-              <div className="menudesplegabledash">
-                <ul>
-                  <li onClick={irAPerfil}>Perfil</li>
-                  <li onClick={irConfig}>Configuración</li>
-                  <li onClick={cerrarSesion}>Cerrar sesión</li>
-                </ul>
-              </div>
-            )}
-          </section>
+          
         </nav>
       </header>
     </>

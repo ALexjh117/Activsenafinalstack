@@ -31,6 +31,7 @@ import "../src/styles/BotHp.css";
 import "../src/styles/ColaViento.css";
 import "../src/styles/Resposive.css";
 import "../src/styles/global.css";
+import toast from "react-hot-toast";
 
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -53,7 +54,7 @@ export default function DashBoard() {
     
 
     if (!token || !IdUsuario) {
-      alert("⚠️ Debes iniciar sesión primero");
+      toast("⚠️ Debes iniciar sesión primero");
       navigate("/");
     } else {
       const rutaPendiente = localStorage.getItem("rutaDesdeNotificacion");

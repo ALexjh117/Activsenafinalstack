@@ -3,7 +3,7 @@ import html2pdf from "html2pdf.js";
 import QRCode from "qrcode";
 import axios from "axios";
 import "./style/Constancia.css";
-
+import { FaCheckCircle } from "react-icons/fa";
 const objetivo = 80;
 
 const ConstanciaSENA = () => {
@@ -136,7 +136,12 @@ const ConstanciaSENA = () => {
             {progreso}%
           </div>
         </div>
-        {haCumplido && <p className="estado-aprobado">✅ Puedes generar tu constancia</p>}
+       {haCumplido && (
+  <p className="estado-aprobado text-constancia">
+    <FaCheckCircle style={{ color: "#FFFF", marginRight: "6px" }} />
+    Puedes generar tu constancia
+  </p>
+)}
       </div>
 
       {haCumplido ? (
@@ -144,7 +149,7 @@ const ConstanciaSENA = () => {
           <h1 className="titulo">CONSTANCIA DE HORAS LÚDICAS</h1>
 
           <p className="texto">
-            El SENA certifica que el aprendiz <strong>{nombreCompleto}</strong>, identificado con
+            ActivSena certifica que el aprendiz <strong>{nombreCompleto}</strong>, identificado con
             el documento No. <strong>{datos.IdentificacionUsuario}</strong>, ha cumplido
             satisfactoriamente con el total de <strong>{objetivo} horas</strong> lúdicas requeridas
             durante su proceso de formación.
@@ -181,9 +186,25 @@ const ConstanciaSENA = () => {
             </div>
           )}
 
-          <button className="btn-descargar" onClick={handleDescargarPDF}>
-            📄 Descargar Constancia PDF
-          </button>
+         <button className="btn-descargar" onClick={handleDescargarPDF}>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{ marginRight: "8px" }}
+  >
+    <path d="M12 5v14m0 0l-6-6m6 6l6-6" />
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+  </svg>
+  Descargar Constancia PDF
+</button>
+
         </div>
       ) : (
         <div className="mensaje-no-cumplido">

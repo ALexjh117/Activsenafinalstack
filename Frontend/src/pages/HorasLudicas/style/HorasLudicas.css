@@ -82,7 +82,7 @@
 }
 .titulo-ludicas {
   font-size: clamp(1.25rem, 2.2vw, 1.85rem);
-  color: var(--m-verde-500);
+ 
   font-weight: 900;
   margin: 0;
   letter-spacing: -.02em;
@@ -97,7 +97,7 @@
 .frase-motivacional {
   margin-top: .18rem;
   font-style: italic;
-  color: rgba(37,99,235,0.85);
+  color: rgba(20, 20, 20, 0.85);
   font-size: .9rem;
 }
 
@@ -317,7 +317,7 @@
   cursor:pointer;
   font-weight: 900;
   font-size:.95rem;
-  background: linear-gradient(135deg,var(--m-verde-500), #0f8a4f);
+  background-color: #31ad0b;
   color: white;
   box-shadow: 0 12px 36px rgba(16,24,40,0.10), 0 6px 18px rgba(16,24,40,0.06);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);

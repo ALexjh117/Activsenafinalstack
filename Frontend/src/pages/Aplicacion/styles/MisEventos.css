@@ -1,0 +1,179 @@
+/* Contenedor principal */
+.mis-eventos-contenedor {
+  padding: 20px;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+/* Títulos */
+.mis-eventos-contenedor h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #0d7a56;
+  margin-bottom: 8px;
+}
+
+.descripcion-registros {
+  margin: 6px 0 20px;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.5;
+  background: #f5f9f6;
+  padding: 10px 14px;
+  border-left: 4px solid #0d7a56;
+  border-radius: 6px;
+}
+
+/* Cards de evento */
+.evento-wrapper {
+  margin-bottom: 20px;
+}
+
+.actividad-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+}
+
+.actividad-card:hover {
+  transform: translateY(-2px);
+}
+
+.actividad-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+  color: #222;
+}
+
+/* Info del evento */
+.actividad-card p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* QR */
+.qr-contenedor {
+  display: flex;
+  gap: 20px;
+  margin: 14px 0;
+}
+
+.qr-item {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border-radius: 10px;
+  background: #fbfdfb;
+  border: 1px solid rgba(10,12,14,0.05);
+  min-width: 104px;
+}
+
+.qr-imagen {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.qr-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0b5a47;
+  background: rgba(94,179,25,0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Botones */
+.btn-ver-asistencia,
+.btn-ver-asistentes-confirmados,
+.btn-comparar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 8px 6px 0 0;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.btn-ver-asistencia {
+  background: #eaf4ef;
+  color: #0d7a56;
+}
+
+.btn-ver-asistencia:hover {
+  background: #d7efe2;
+}
+
+.btn-ver-asistentes-confirmados {
+  background: #f4f6fb;
+  color: #163c7a;
+}
+
+.btn-ver-asistentes-confirmados:hover {
+  background: #e4ebfa;
+}
+
+.btn-comparar {
+  background: #fff3e5;
+  color: #b75d00;
+}
+
+.btn-comparar:hover {
+  background: #ffe7cc;
+}
+
+/* Tabla asistencia */
+.tabla-asistencia {
+  margin-top: 16px;
+  overflow-x: auto;
+}
+
+.tabla-asistencia table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.tabla-asistencia th,
+.tabla-asistencia td {
+  padding: 10px;
+  border-bottom: 1px solid #e2e2e2;
+  text-align: left;
+}
+
+.tabla-asistencia th {
+  background: #f1f5f4;
+  font-weight: 600;
+  color: #0d7a56;
+}
+
+.estado-contenedor {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.estado-completo { color: #0d7a56; }
+.estado-incompleto { color: #e69100; }
+.estado-sin-registro { color: #d63031; }
+
+/* Iconos */
+.icon-sm { font-size: 16px; vertical-align: middle; margin-right: 4px; color: #0b5a47; }
+.icon-btn { font-size: 18px; vertical-align: middle; margin-right: 6px; }

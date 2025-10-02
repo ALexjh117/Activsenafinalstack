@@ -73,6 +73,12 @@ export default function UserViewAp({ setContenidoActual }) {
     <>
     
    <h1 style={{marginLeft:60 }}>Bienvenido De nuevo <strong  className="text-bienvenida">Aprendiz</strong> </h1>
+          
+    <p className="texto-dash-todos-rol">
+  
+  Aquí podrás consultar tus actividades, participar en eventos y hacer parte de todas las experiencias que tenemos para ti.
+</p>
+
     <section className="UserContenedor">
       
       {!usuario ? (

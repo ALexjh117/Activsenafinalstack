@@ -100,13 +100,11 @@ const ListaLudicas = () => {
         <div className="search-barr">
           <input
             type="text"
-            placeholder="Buscar actividad..."
+            placeholder="Buscar Ludica..."
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
           />
-          <button className="search-btn">
-            <i className="fas fa-search"></i>
-          </button>
+     
         </div>
 
         <div className="categorias-filter">

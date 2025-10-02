@@ -12,7 +12,7 @@ let projects = [
   {
     title: "Comunidad Activa",
     description: "Conéctate con otros usuarios y comparte conocimientos.",
-    image: "/img/comunidad.avif"
+    image: "/img/activ.png"
   },
   {
     title: "Eventos y Actividades",

@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 export default function HeroHomeSection() {
   let images = [
-    "url(../../../../public/img/portada5.jpeg)",
-    "url(../../../../public/img/portada6.jpeg)",
-    "url(../../../../public/img/portada4.jpeg)",
+    "url(../../../../public/img/fondocol.jpg)",
+    "url(../../../../public/img/fondoef.jpg)",
+    "url(../../../../public/img/portada2.jpg)",
   ];
   
 
@@ -43,9 +43,11 @@ export default function HeroHomeSection() {
           <div className="hero-subtitle-home">
             PRESENTANDO ACTIV SENA <span>08/06/2025</span>
           </div>
-          <h1 className="hero-title-home h1-home">
-            Gestiona, <span className="highlight-home">Diviértete</span> en la plataforma más innovadora
-          </h1>
+     <h1 className="hero-title-home h1-home">
+  El Lugar Donde Tu Aprendizaje  Se Convierte En Una <span className="highlight-home">Experiencia</span>
+</h1>
+
+
           <div className="hero-actions-home">
           
 
@@ -53,7 +55,7 @@ export default function HeroHomeSection() {
               Iniciar Sesión
             </Link>
 
-            <a href="#" className="play-btn-home a-home">
+            <a href="/Cuenta" className="play-btn-home a-home">
               <i className="icon-play-home"></i>
             </a>
           </div>

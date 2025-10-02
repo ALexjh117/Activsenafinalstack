@@ -5,7 +5,10 @@
   position: relative;
   overflow: hidden;
   margin-top: 129px;
-    background-image: url("../img/eventos.jpg"); /*Aqui va la imagen del  fondo*/
+ background-position: center;
+ 
+ background-size: cover;
+    background-image: url("../img/fondocol.jpg"); /*Aqui va la imagen del  fondo*/
 }
 
 .imagen-fondo {

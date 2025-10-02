@@ -71,7 +71,7 @@ export default function FooterHome() {
           </div>
         </div>
         <div className="footer-bottom-home">
-          <p className='p-home'>&copy; 2023 ActivSena. Todos los Derechos Reservados.</p>
+          <p className='p-home'>&copy; 2025 ActivSena. Todos los Derechos Reservados.</p>
         </div>
       </div>
     </footer>

@@ -147,17 +147,14 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
         {/* 3. Gestión de Aprendices */}
         <div className="grupo-menu">
           <button className="tituloseccion" onClick={() => toggleSection("aprendices")}>
-            {openSection.aprendices ? <FaChevronDown /> : <FaChevronRight />} Gestión de Aprendices
+            {openSection.aprendices ? <FaChevronDown /> : <FaChevronRight />}  Novedades
           </button>
           {openSection.aprendices && (
             <>
             <button onClick={() => setContenidoActual("aprobadoseventos")} className="opciondash">
                 <FaCheckDouble className="iconodash" /> Eventos Aprobados
               </button>
-           <button onClick={() => setContenidoActual("asistenciaseventos")} className="opciondash">
-                <FaRegNewspaper className="iconodash" /> Asistencia eventos
-              </button>
-      
+           
               {/* <button onClick={() => setContenidoActual("solicitudapoyoinstructor")} className="opciondash">
                 <FaClipboardList className="iconodash" /> Apoyos
               </button> */}
@@ -187,7 +184,7 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
   className="btn-cerrar-sesion"
   onClick={() => {
     logout(); 
-    toast.success("Sesión cerrada correctamente 👋");
+    toast.success("Sesión cerrada correctamente ");
   }}
 >
   <FaRegCaretSquareRight className="icono-cerrar" /> 

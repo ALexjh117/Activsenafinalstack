@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./style/MisLudicas.css";
 import ReporteAsistencia from "./Reportes"; 
+import { MdEvent, MdAccessTime, MdLocationOn, MdGroups, MdBarChart } from "react-icons/md";
+import { FaDoorOpen, FaDoorClosed, FaTimesCircle, FaCheckCircle } from "react-icons/fa";
+
 
 export default function MisActividadesYLudicas() {
   const [actividades, setActividades] = useState([]);
@@ -71,7 +74,13 @@ export default function MisActividadesYLudicas() {
 
   return (
     <div className="mis-actividades-contenedor">
-      <h2>Mis Registros</h2>
+    <h2>Gestión de Actividades y Lúdicas</h2>
+
+<p className="descripcion-registros">
+  Aquí puedes consultar tus <strong>actividades</strong> y <strong>lúdicas</strong>, 
+  ver los registros de asistencia de los aprendices y generar reportes detallados 
+  para cada evento.
+</p>
 
       {/* Tabs */}
       <div className="tabs">
@@ -94,20 +103,36 @@ export default function MisActividadesYLudicas() {
         actividades.map((act) => (
           <div key={act.IdActividad} className="actividad-card">
             <h3>{act.NombreActi}</h3>
-            <p>🗓️ {act.FechaInicio} | ⏰ {act.HoraInicio} - {act.HoraFin}</p>
-            <p>📍 {act.Ubicacion}</p>
+           <p><MdEvent /> {act.FechaInicio} | <MdAccessTime /> {act.HoraInicio} - {act.HoraFin}</p>
+<p><MdLocationOn /> {act.Ubicacion}</p>
+
             <img src={`http://localhost:3001/uploads/${act.Imagen}`} alt="" width={200} />
 
-            <div className="qr-contenedor">
-              {act.CodigoQR && <img src={act.CodigoQR} alt="QR Entrada" />}
-              {act.CodigoQRSalida && <img src={act.CodigoQRSalida} alt="QR Salida" />}
-            </div>
+          <div className="qr-contenedor">
+  {act.CodigoQR && (
+    <div className="qr-item">
+      <img src={act.CodigoQR} alt="QR Entrada" />
+      <span className="qr-label">Entrada</span>
+    </div>
+  )}
+  {act.CodigoQRSalida && (
+    <div className="qr-item">
+      <img src={act.CodigoQRSalida} alt="QR Salida" />
+      <span className="qr-label">Salida</span>
+    </div>
+  )}
+</div>
+
 
             <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-              <button onClick={() => obtenerAsistencias(act.IdActividad)}>📥 Ver asistencia</button>
+             <button onClick={() => obtenerAsistencias(act.IdActividad)}>
+  <MdGroups /> Ver asistencia
+</button>
 
-              {/* Botón nuevo para abrir reporte */}
-              <button onClick={() => abrirReporte(act.IdActividad)}>📊 Ver reporte</button>
+<button onClick={() => abrirReporte(act.IdActividad)}>
+  <MdBarChart /> Ver reporte
+</button>
+
             </div>
 
             {asistencias[act.IdActividad] && (
@@ -138,13 +163,14 @@ export default function MisActividadesYLudicas() {
                         <td>{a.QREntrada ? new Date(a.QREntrada).toLocaleTimeString() : "—"}</td>
                         <td>{a.QRSalida ? new Date(a.QRSalida).toLocaleTimeString() : "—"}</td>
                         
-                        <td>
-                          {a.QREntrada && a.QRSalida
-                            ? "✅ Completa"
-                            : a.QREntrada
-                            ? "🕓 Solo entrada"
-                            : "❌ Sin registro"}
-                        </td>
+                       <td>
+  {a.QREntrada && a.QRSalida
+    ? <><FaCheckCircle color="green" /> Completa</>
+    : a.QREntrada
+    ? <><FaDoorOpen color="orange" /> Solo entrada</>
+    : <><FaTimesCircle color="red" /> Sin registro</>}
+</td>
+
                       </tr>
                     ))}
                   </tbody>
@@ -161,18 +187,36 @@ export default function MisActividadesYLudicas() {
         ludicas.map((ludica) => (
           <div key={ludica.IdActividad} className="actividad-card ludica-card">
             <h3>{ludica.NombreActi}</h3>
-            <p>📅 {ludica.FechaInicio} | 🕒 {ludica.HoraInicio} - {ludica.HoraFin}</p>
-            <p>📍 {ludica.Ubicacion}</p>
+           <p><MdEvent /> {ludica.FechaInicio} | <MdAccessTime /> {ludica.HoraInicio} - {ludica.HoraFin}</p>
+<p><MdLocationOn /> {ludica.Ubicacion}</p>
+
             <img src={`http://localhost:3001/uploads/${ludica.Imagen}`} alt="" width={200} />
 
-            <div className="qr-contenedor">
-              <img src={ludica.CodigoQR} alt="QR Entrada" />
-              <img src={ludica.CodigoQRSalida} alt="QR Salida" />
-            </div>
+         <div className="qr-contenedor">
+  {ludica.CodigoQR && (
+    <div className="qr-item">
+      <img src={ludica.CodigoQR} alt="QR Entrada" />
+      <span className="qr-label">Entrada</span>
+    </div>
+  )}
+  {ludica.CodigoQRSalida && (
+    <div className="qr-item">
+      <img src={ludica.CodigoQRSalida} alt="QR Salida" />
+      <span className="qr-label">Salida</span>
+    </div>
+  )}
+</div>
+
 
             <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
-              <button onClick={() => obtenerAsistencias(ludica.IdActividad)}>📥 Ver asistentes</button>
-              <button onClick={() => abrirReporte(ludica.IdActividad)}>📊 Ver reporte</button>
+              <button onClick={() => obtenerAsistencias(ludica.IdActividad)}>
+  <MdGroups /> Ver asistentes
+</button>
+
+<button onClick={() => abrirReporte(ludica.IdActividad)}>
+  <MdBarChart /> Ver reporte
+</button>
+
             </div>
 
             {asistencias[ludica.IdActividad] && (
@@ -201,13 +245,14 @@ export default function MisActividadesYLudicas() {
                         <td>{a.usuario?.perfilAprendiz?.Jornada || "—"}</td>
                         <td>{a.QREntrada ? new Date(a.QREntrada).toLocaleTimeString() : "—"}</td>
                         <td>{a.QRSalida ? new Date(a.QRSalida).toLocaleTimeString() : "—"}</td>
-                        <td>
-                          {a.QREntrada && a.QRSalida
-                            ? "✅ Completa"
-                            : a.QREntrada
-                            ? "🕓 Solo entrada"
-                            : "❌ Sin registro"}
-                        </td>
+                       <td>
+  {a.QREntrada && a.QRSalida
+    ? <><FaCheckCircle color="green" /> Completa</>
+    : a.QREntrada
+    ? <><FaDoorOpen color="orange" /> Solo entrada</>
+    : <><FaTimesCircle color="red" /> Sin registro</>}
+</td>
+
                       </tr>
                     ))}
                   </tbody>

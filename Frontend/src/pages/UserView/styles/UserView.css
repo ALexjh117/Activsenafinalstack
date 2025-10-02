@@ -268,5 +268,9 @@
 
 
 .text-bienvenida{
-  color: rgb(0, 255, 34);
+  color: rgb(25, 196, 10);
+}
+
+.texto-dash-todos-rol{
+margin-left: 70px;
 }

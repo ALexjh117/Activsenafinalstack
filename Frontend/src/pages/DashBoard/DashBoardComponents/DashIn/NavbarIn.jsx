@@ -168,25 +168,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
           )}
         </div>
 
-        <section className="usuariodash" style={{ position: "relative" }}>
-          <img src={avatar} alt="Usuariodash" className="avatardash" />
-          <span
-            className="nombredash"
-            style={{ cursor: "pointer" }}
-          >
-            Instructor
-          </span>
-
-          {mostrarMenu && (
-            <div className="menudesplegabledash">
-              <ul>
-                <li onClick={irAPerfil}>Perfil</li>
-                <li onClick={irConfig}>Configuración</li>
-                <li onClick={cerrarSesion}>Cerrar sesión</li>
-              </ul>
-            </div>
-          )}
-        </section>
+    
       </nav>
     </header>
   );
