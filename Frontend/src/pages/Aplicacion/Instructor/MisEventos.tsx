@@ -6,6 +6,11 @@ import Swal from 'sweetalert2';
 import "../styles/MisEventos.css"
 import { MdEvent, MdAccessTime, MdLocationOn, MdGroups, MdBarChart } from "react-icons/md";
 import { FaDoorOpen, FaDoorClosed, FaTimesCircle, FaCheckCircle } from "react-icons/fa";
+import ModalEstadisticas from "./ModalEstadisticas";
+
+
+
+
 
 interface EventoConDatos {
   IdEvento: number;
@@ -48,6 +53,10 @@ export default function MisEventos() {
   const [usuarioId, setUsuarioId] = useState<number | null>(null);
   const [eventos, setEventos] = useState<EventoConDatos[]>([]);
   const [mostrarAsistentes, setMostrarAsistentes] = useState<Record<number, boolean>>({});
+
+  const [mostrarReporte, setMostrarReporte] = useState(false);
+const [eventoSeleccionadoId, setEventoSeleccionadoId] = useState<number | null>(null);
+
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -230,130 +239,149 @@ if (idsNoConfirmaronPeroAsistieron.length > 0) {
     <div className="mis-actividades-contenedor">
       <h2>Mis Eventos Creados</h2>
       <p className="descripcion-registros">
-  Aquí puedes ver tus eventos creados, revisar los registros de asistencia y enviar notificaciones o reportes a los participantes.
-</p>
-
+      Aquí puedes ver tus eventos creados, revisar los registros de asistencia y enviar notificaciones o reportes a los participantes.
+      </p>
 
       {eventos.length === 0 && <p>No has creado eventos aún.</p>}
 
       {eventos.map((evento) => (
-        <div key={evento.IdEvento} className="evento-wrapper">
-          <div className="actividad-card">
-            <h3>{evento.NombreEvento}</h3>
-      <p>
-  <MdEvent className="icon-sm" /> {evento.FechaInicio} &nbsp; | &nbsp;
-  <MdAccessTime className="icon-sm" /> {evento.HoraInicio} - {evento.HoraFin}
-</p>
-<p><MdLocationOn className="icon-sm" /> {evento.UbicacionEvento}</p>
+      <div key={evento.IdEvento} className="evento-wrapper">
+        <div className="actividad-card">
+        <h3>{evento.NombreEvento}</h3>
+        <p>
+          <MdEvent className="icon-sm" /> {evento.FechaInicio} &nbsp; | &nbsp;
+          <MdAccessTime className="icon-sm" /> {evento.HoraInicio} - {evento.HoraFin}
+        </p>
+        <p><MdLocationOn className="icon-sm" /> {evento.UbicacionEvento}</p>
+        <p>📝 {evento.DescripcionEvento}</p>
 
-            <p>📝 {evento.DescripcionEvento}</p>
-
-          {evento.QREntrada && (
-  <div className="qr-contenedor">
-    <div className="qr-item">
-      <img src={evento.QREntrada} alt={`QR de entrada - ${evento.NombreEvento}`} className="qr-imagen" />
-      <span className="qr-label"><FaDoorOpen style={{ verticalAlign: 'middle' }} /> Entrada</span>
-    </div>
-  </div>
-)}
-
-{evento.QRSalida && (
-  <div className="qr-contenedor">
-    <div className="qr-item">
-      <img src={evento.QRSalida} alt={`QR de salida - ${evento.NombreEvento}`} className="qr-imagen" />
-      <span className="qr-label"><FaDoorClosed style={{ verticalAlign: 'middle' }} /> Salida</span>
-    </div>
-  </div>
-)}
-
-<button
-  type="button"
-  className="btn-ver-asistencia"
-  onClick={() => obtenerAsistencias(evento.IdEvento)}
-  aria-label={`Ver asistencia de ${evento.NombreEvento}`}
->
-  <MdGroups className="icon-btn" /> Ver asistencia
-</button>
-
-<button
-  type="button"
-  className="btn-ver-asistentes-confirmados"
-  onClick={() =>
-    setMostrarAsistentes((prev) => ({ ...prev, [evento.IdEvento]: !prev[evento.IdEvento] }))
-  }
-  aria-label={`Ver asistentes confirmados ${evento.NombreEvento}`}
->
-  <MdGroups className="icon-btn" /> {mostrarAsistentes[evento.IdEvento] ? "Ocultar" : "Ver"} asistentes confirmados
-</button>
-
-<button
-  type="button"
-  className="btn-comparar"
-  onClick={() => compararYNotificar(evento.IdEvento)}
-  aria-label={`Comparar asistencia y notificar ${evento.NombreEvento}`}
->
-  <MdBarChart className="icon-btn" /> Comparar y notificar
-</button>
-
-            {mostrarAsistentes[evento.IdEvento] && (
-              <AsistentesEvento idEvento={evento.IdEvento} />
-            )}
-
-            {asistencias[evento.IdEvento] && (
-              <div className="tabla-asistencia">
-                <h4>📊 Asistencia registrada</h4>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Nombre</th>
-                      <th>Correo</th>
-                      <th>Ficha</th>
-                      <th>Programa</th>
-                      <th>Jornada</th>
-                      <th>Hora Entrada</th>
-                      <th>Hora Salida</th>
-                      <th>Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {asistencias[evento.IdEvento].map((asistente, index) => (
-                      <tr key={index}>
-                        <td>
-                          {asistente.usuario?.Nombre} {asistente.usuario?.Apellido}
-                        </td>
-                        <td>{asistente.usuario?.Correo}</td>
-                        <td>{asistente.usuario?.perfilAprendiz?.Ficha || "—"}</td>
-                        <td>{asistente.usuario?.perfilAprendiz?.ProgramaFormacion || "—"}</td>
-                        <td>{asistente.usuario?.perfilAprendiz?.Jornada || "—"}</td>
-                        <td>
-                          {asistente.QREntrada
-                            ? new Date(asistente.QREntrada).toLocaleTimeString("es-CO")
-                            : "—"}
-                        </td>
-                        <td>
-                          {asistente.QRSalida
-                            ? new Date(asistente.QRSalida).toLocaleTimeString("es-CO")
-                            : "—"}
-                        </td>
-                       <td>
-  {asistente.QREntrada && asistente.QRSalida ? (
-    <span className="estado-contenedor estado-completo"><FaCheckCircle className="icon-sm" /> Completa</span>
-  ) : asistente.QREntrada ? (
-    <span className="estado-contenedor estado-incompleto"><FaDoorOpen className="icon-sm" /> Solo entrada</span>
-  ) : (
-    <span className="estado-contenedor estado-sin-registro"><FaTimesCircle className="icon-sm" /> Sin registro</span>
-  )}
-</td>
-
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
+        {evento.QREntrada && (
+          <div className="qr-contenedor">
+          <div className="qr-item">
+            <img src={evento.QREntrada} alt={`QR de entrada - ${evento.NombreEvento}`} className="qr-imagen" />
+            <span className="qr-label"><FaDoorOpen style={{ verticalAlign: 'middle' }} /> Entrada</span>
           </div>
+          </div>
+        )}
+
+        {evento.QRSalida && (
+          <div className="qr-contenedor">
+          <div className="qr-item">
+            <img src={evento.QRSalida} alt={`QR de salida - ${evento.NombreEvento}`} className="qr-imagen" />
+            <span className="qr-label"><FaDoorClosed style={{ verticalAlign: 'middle' }} /> Salida</span>
+          </div>
+          </div>
+        )}
+
+        <button
+          type="button"
+          className="btn-ver-asistencia"
+          onClick={() => obtenerAsistencias(evento.IdEvento)}
+          aria-label={`Ver asistencia de ${evento.NombreEvento}`}
+        >
+          <MdGroups className="icon-btn" /> Ver asistencia
+        </button>
+        <button
+          type="button"
+          className="btn-reporte"
+          onClick={() => {
+          setEventoSeleccionadoId(evento.IdEvento);
+          setMostrarReporte(true);
+          }}
+        >
+          📊 Ver estadísticas
+        </button>
+
+        <button
+          type="button"
+          className="btn-ver-asistentes-confirmados"
+          onClick={() =>
+          setMostrarAsistentes((prev) => ({ ...prev, [evento.IdEvento]: !prev[evento.IdEvento] }))
+          }
+          aria-label={`Ver asistentes confirmados ${evento.NombreEvento}`}
+        >
+          <MdGroups className="icon-btn" /> {mostrarAsistentes[evento.IdEvento] ? "Ocultar" : "Ver"} asistentes confirmados
+        </button>
+
+        <button
+          type="button"
+          className="btn-comparar"
+          onClick={() => compararYNotificar(evento.IdEvento)}
+          aria-label={`Comparar asistencia y notificar ${evento.NombreEvento}`}
+        >
+          <MdBarChart className="icon-btn" /> Comparar y notificar
+        </button>
+
+        {mostrarAsistentes[evento.IdEvento] && (
+          <AsistentesEvento idEvento={evento.IdEvento} />
+        )}
+
+        {asistencias[evento.IdEvento] && (
+          <div className="tabla-asistencia">
+          <h4>📊 Asistencia registrada</h4>
+          <table>
+            <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Ficha</th>
+              <th>Programa</th>
+              <th>Jornada</th>
+              <th>Hora Entrada</th>
+              <th>Hora Salida</th>
+              <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            {asistencias[evento.IdEvento].map((asistente, index) => (
+              <tr key={index}>
+              <td>
+                {asistente.usuario?.Nombre} {asistente.usuario?.Apellido}
+              </td>
+              <td>{asistente.usuario?.Correo}</td>
+              <td>{asistente.usuario?.perfilAprendiz?.Ficha || "—"}</td>
+              <td>{asistente.usuario?.perfilAprendiz?.ProgramaFormacion || "—"}</td>
+              <td>{asistente.usuario?.perfilAprendiz?.Jornada || "—"}</td>
+              <td>
+                {asistente.QREntrada
+                ? new Date(asistente.QREntrada).toLocaleTimeString("es-CO")
+                : "—"}
+              </td>
+              <td>
+                {asistente.QRSalida
+                ? new Date(asistente.QRSalida).toLocaleTimeString("es-CO")
+                : "—"}
+              </td>
+              <td>
+                {asistente.QREntrada && asistente.QRSalida ? (
+                <span className="estado-contenedor estado-completo"><FaCheckCircle className="icon-sm" /> Completa</span>
+                ) : asistente.QREntrada ? (
+                <span className="estado-contenedor estado-incompleto"><FaDoorOpen className="icon-sm" /> Solo entrada</span>
+                ) : (
+                <span className="estado-contenedor estado-sin-registro"><FaTimesCircle className="icon-sm" /> Sin registro</span>
+                )}
+              </td>
+              </tr>
+            ))}
+            </tbody>
+          </table>
+          </div>
+        )}
         </div>
+      </div>
       ))}
+      {/* UNA SOLA INSTANCIA DEL MODAL (FUERA DEL map) */}
+      <ModalEstadisticas
+      open={mostrarReporte}
+      onClose={() => {
+        setMostrarReporte(false);
+        setEventoSeleccionadoId(null);
+      }}
+      eventos={eventos}
+      asistencias={asistencias}
+      // Elimina la prop eventoSeleccionadoId si no existe en ModalEstadisticasProps
+      />
     </div>
+    
   );
 }

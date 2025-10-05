@@ -41,7 +41,7 @@ export default function HeroHomeSection() {
       <div className="container-home">
         <div className="hero-content-home">
           <div className="hero-subtitle-home">
-            PRESENTANDO ACTIV SENA <span>08/06/2025</span>
+            PRESENTANDO ACTIV SENA <span>08/10/2025</span>
           </div>
      <h1 className="hero-title-home h1-home">
   El Lugar Donde Tu Aprendizaje  Se Convierte En Una <span className="highlight-home">Experiencia</span>
