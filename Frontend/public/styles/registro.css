@@ -140,7 +140,7 @@
 }
 
 .boton-registro:hover {
-  background-color: #21ce3e;
+  background-color: #25e91e;
 }
 
 .boton-registro:active {
@@ -172,3 +172,136 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+:root{
+  --bg: #ffffff;
+  --surface: #f9fafb;
+  --text: #374151;
+  --muted: #6b7280;
+  --success: #48e414;
+  --success-50: rgba(23, 245, 34, 0.08);
+  --danger: #ef4444;
+  --border: #e5e7eb;
+  --input-height: 3rem;
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --spacing: 1rem;
+  --shadow-sm: 0 1px 2px rgba(15, 88, 235, 0.04);
+}
+
+/* Contenedor principal */
+.contenedor-registro {
+  max-width: 900px;
+  margin: 18px auto;
+  padding: 18px;
+  background: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+}
+
+/* Título */
+.tituloUnico {
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+/* Formulario */
+.formulario-registro {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 8px 4px;
+}
+
+/* Grid */
+.grilla-campos-registro {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+}
+
+@media(min-width: 768px){
+  .grilla-campos-registro { grid-template-columns: 1fr 1fr; }
+}
+
+/* Grupo campo */
+.grupo-campo-registro { display: flex; flex-direction: column; gap: 0.35rem; }
+
+/* Etiqueta */
+.etiqueta-registro { color: var(--text); font-weight: 600; font-size: 0.95rem; display:flex; align-items:center; gap:6px; }
+
+/* Asterisco */
+.asterisco-obligatorio-registro { color: var(--danger); font-weight:700; }
+
+/* Inputs */
+.campo-input-registro,
+select.campo-input-registro,
+input[type="file"] {
+  height: var(--input-height);
+  padding: 0 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color .15s ease, box-shadow .15s ease;
+  background: var(--bg);
+}
+
+/* Ajuste para inputs con icono (si los pones) */
+.contenedor-input-registro .campo-input-registro { padding-left: 2.5rem; }
+
+/* Focus visible */
+.campo-input-registro:focus,
+select.campo-input-registro:focus,
+input[type="file"]:focus {
+  outline: none;
+  border-color: var(--success);
+  box-shadow: 0 0 0 4px var(--success-50);
+}
+
+/* Estados válido/inválido */
+.campo-valido-registro { border-color: var(--success); box-shadow: 0 0 0 4px var(--success-50); }
+.campo-invalido-registro { border-color: var(--danger) !important; box-shadow: 0 0 0 4px rgba(239,68,68,0.08) !important; }
+
+/* Checkbox y terminos */
+.contenedor-terminos-registro { display:flex; gap:0.6rem; align-items:flex-start; margin-top: 6px; }
+.checkbox-terminos-registro { width: 1.125rem; height: 1.125rem; border-radius: 4px; border: 1px solid var(--border); accent-color: var(--success); cursor: pointer; }
+.checkbox-terminos-registro:focus { outline: none; box-shadow: 0 0 0 4px var(--success-50); }
+.texto-terminos-registro { font-size: 0.9rem; color: var(--muted); }
+.enlace-terminos-registro { color: var(--success); text-decoration: none; font-weight:600; }
+.enlace-terminos-registro:hover { text-decoration: underline; }
+
+/* Botón */
+.boton-registro {
+  background: linear-gradient(180deg, var(--success), #059605);
+  color: #fff;
+  border: none;
+  height: 3.25rem;
+  padding: 0 16px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+  box-shadow: 0 8px 20px rgba(16,185,129,0.12);
+}
+.boton-registro:disabled { background: #c7d7d1; cursor:not-allowed; box-shadow:none; }
+.boton-registro:hover:not(:disabled){ transform: translateY(-1px); }
+
+/* Mensajes */
+.mensaje-error-registro { color: var(--danger); font-size: 0.85rem; margin-top: 4px; }
+.mensaje-exito { color: var(--success); font-size: 0.95rem; font-weight:600; }
+
+/* Previews de imagen */
+.preview-imagen {
+  margin-top: 6px;
+  max-width: 160px;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  box-shadow: 0 6px 16px rgba(2,6,23,0.04);
+}
+
+/* Utilities */
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px,1px,1px,1px); white-space: nowrap; }

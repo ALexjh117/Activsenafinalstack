@@ -34,11 +34,13 @@ import RegistrarElemento from "../src/pages/Elementos/RegistrarElemento";
 import ListaTrimestre from "../src/pages/ListaEventosTM/EventosporTrimestre";
 import Registro from "./Registro";
 import SubirAprendices from "../src/pages/SubirAprendices/SubirAprendices";
+import AprendicesCargados from "../src/pages/SubirAprendices/AprendicesCargados";
+import UsuariosCargados from "../public/UsuariosCargados";
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
   const [contenidoActual, setContenidoActual] = useState("userview");
   const [esTemaHalloween, setEsTemaHalloween] = useState(false);
-  const [resumenIAData, setResumenIAData] = useState(null); // 🧠 Nuevo
+  const [resumenIAData, setResumenIAData] = useState(null); //  Nuevo
 
   useEffect(() => {
     const temaGuardado = localStorage.getItem("tema-halloween") === "true";
@@ -53,7 +55,7 @@ export default function DashBoard() {
     }
   }, [esTemaHalloween]);
 
-  // 📦 Fetch resumen IA cuando se selecciona el contenido
+  //  Fetch resumen IA cuando se selecciona el contenido
   useEffect(() => {
     if (contenidoActual === "resumenia") {
       fetch("https://render-hhyo.onrender.com/api/resumenia/resumen", {
@@ -130,6 +132,8 @@ export default function DashBoard() {
             {contenidoActual === "listatrimestre" && <ListaTrimestre />}
             {contenidoActual === "subiraprendiz" && <SubirAprendices />}
             {contenidoActual === "registro" && <Registro />}
+             {contenidoActual === "aprendices" && <AprendicesCargados />}
+             {contenidoActual === "usuarios-registrados" && <UsuariosCargados />}
         {contenidoActual === "temas" && (
           <DashThemed
             esTemaHalloween={esTemaHalloween}
@@ -138,7 +142,7 @@ export default function DashBoard() {
         )}
         {contenidoActual === "perfil" && <HomeDash />}
 
-        {/* ✅ NUEVO */}
+        {/*  NUEVO */}
         {contenidoActual === "resumenia" && resumenIAData && (
           <ResumenIA resumen={resumenIAData} />
         )}

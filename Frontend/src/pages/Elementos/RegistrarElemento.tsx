@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import "./style/Elemento.css";
+import toast from 'react-hot-toast';
 
 export default function SubirElemento() {
   const [nombre, setNombre] = useState('');
@@ -38,7 +39,7 @@ export default function SubirElemento() {
       setImagen(null);
     } catch (error) {
       console.error(error);
-      setMensaje('Error al subir el elemento');
+      toast.success('Elemento subido');
     }
   };
 

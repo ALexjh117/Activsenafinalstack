@@ -3,7 +3,7 @@ import axios from "axios";
 import io from "socket.io-client";
 import "./style/FormularioCatalogo.css";
 
-const socket = io("https://render-hhyo.onrender.com"); // ⚠️ Cambia la IP si usas otra
+const socket = io("https://render-hhyo.onrender.com"); //  Cambia la IP si usas otra
 
 const FormularioCatalogo = () => {
   const [nombre, setNombre] = useState("");
@@ -30,7 +30,7 @@ const FormularioCatalogo = () => {
 
       // 🔔 Emitimos notificación por socket
       socket.emit("nuevaNotificacion", {
-        titulo: "📦 Nuevo elemento agregado al catálogo",
+        titulo: " Nuevo elemento agregado al catálogo",
         mensaje: `Se añadió "${nombre}" como nuevo recurso disponible para alquiler.`,
         tipo: "catalogo",
         fecha: new Date(),

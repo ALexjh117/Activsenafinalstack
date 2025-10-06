@@ -36,25 +36,7 @@ export default function Navbar({ toggleMenu, setContenidoActual }) {
           <FaBell />
         </button>
 
-        <section className="usuariodash" style={{ position: "relative" }}>
-          <img src={avatar} alt="Usuariodash" className="avatardash" />
-          <span
-            className="nombredash"
-            style={{ cursor: "pointer" }}
-          >
-            Administrador
-          </span>
-
-          {mostrarMenu && (
-            <div className="menudesplegabledash">
-              <ul>
-                <li onClick={irAPerfil}>Perfil</li>
-                <li onClick={irConfig}>Configuración</li>
-                <li>Cerrar sesión</li>
-              </ul>
-            </div>
-          )}
-        </section>
+      
       </nav>
     </header>
   );

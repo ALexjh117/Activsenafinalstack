@@ -184,7 +184,7 @@ export default function MenuLateralIn({ menuAbierto, setContenidoActual }) {
   className="btn-cerrar-sesion"
   onClick={() => {
     logout(); 
-    toast.success("Sesión cerrada correctamente ");
+    toast.success("¡Sesión cerrada correctamente! ");
   }}
 >
   <FaRegCaretSquareRight className="icono-cerrar" /> 

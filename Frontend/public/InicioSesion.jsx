@@ -42,9 +42,10 @@ export default function InicioSesion() {
   const [cargando, setCargando] = useState(false);
   const [mensaje, setMensaje] = useState("");
   const [tipoMensaje, setTipoMensaje] = useState("");
+    const [mostrarInfo, setMostrarInfo] = useState(false);
 
   const navigate = useNavigate();
-  const { login } = useAuth(); // ✅ usar login del contexto
+  const { login } = useAuth(); //  usar login del contexto
 
   const manejarCambio = (evento) => {
     const { name, value, type, checked } = evento.target;
@@ -73,10 +74,10 @@ console.log ( "usuario recibido" , usuario);
 
 
       login(token, usuario); // Contexto
-localStorage.setItem("IdUsuario", usuario.IdUsuario); // ✅ Cambiado
+localStorage.setItem("IdUsuario", usuario.IdUsuario); //  Cambiado
 localStorage.setItem("token", token);
 
-     toast.success("Inicio de sesión exitoso");
+     toast.success("¡Inicio de sesión exitoso!");
 
       setTipoMensaje("exito");
 
@@ -163,6 +164,28 @@ localStorage.setItem("token", token);
     </form>
 
 
+        <button
+          type="button"
+          className="boton-detalle-inicio"
+          onClick={() => setMostrarInfo(!mostrarInfo)}
+        >
+          {mostrarInfo ? "Ocultar detalle" : "Ver detalle"}
+        </button>
+
+        {mostrarInfo && (
+          <p className="info-inicio-sesion">
+            Recuerda Usa tu <strong>correo institucional</strong> y tu <strong>número de documento</strong> como contraseña.
+          </p>
+        )}
+
+        {mensaje && (
+          <p
+            className={`mensaje-${tipoMensaje}`}
+            style={{ textAlign: "center", marginTop: "1rem" }}
+          >
+            {mensaje}
+          </p>
+        )}
 
     </>
   );

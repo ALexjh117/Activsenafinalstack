@@ -29,6 +29,7 @@ import SubirAprendices from "./pages/SubirAprendices/SubirAprendices"
 import AprendicesCargados from "./pages/SubirAprendices/AprendicesCargados"
 import PlanificarEvento from "./pages/PlanificarEv/PlanificarEvento";
 import ToastProvider from "../public/ToastProvider";
+import UsuariosCargados from "../public/UsuariosCargados";
 
 export default function RutasComponents() {
   return (
@@ -56,6 +57,7 @@ export default function RutasComponents() {
               <Route path="/feedbacks/:idActividad" element={<Feedbacks />} />
              <Route path="/subiraprendiz" element={<SubirAprendices />} />
                <Route path="/aprendices" element={<AprendicesCargados />} />
+               <Route path="/usuarios-registrados" element={<UsuariosCargados />} />
             <Route path="/historial" element={<HistorialAsistencia IdUsuario={1} />} />
             <Route path="/apoyo-sostenimiento" element={<ApoyoSostenimiento />} />
              <Route path="/planevento" element={<PlanificarEvento />} />

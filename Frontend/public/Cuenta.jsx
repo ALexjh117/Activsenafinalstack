@@ -58,7 +58,7 @@ export default function Cuenta() {
             <div className="encabezado-tarjeta encabezado-tarjeta-desktop">
               <h1 className="titulo-tarjeta titulo-tarjeta-desktop">{esLogin ? "Iniciar Sesión" : "Registrarse"}</h1>
               <p className="descripcion-tarjeta descripcion-tarjeta-desktop">
-                {esLogin ? "Accede a la plataforma más innovadora" : "Únete a la plataforma más innovadora"}
+                {esLogin ? "Accede a tu espacio de formación y bienestar" : "Únete a la plataforma más innovadora"}
               </p>
             </div>
             <div className="contenido-tarjeta contenido-tarjeta-desktop">

@@ -31,6 +31,8 @@ import avatar from "../img/avatar.png";
 import "../DashA/style/MenuLateral.css"
 import { useAuth } from "../../../../Context/AuthContext";
 import { Toaster, toast } from "react-hot-toast";
+import { AiOutlineUpload } from "react-icons/ai";  
+import { MdCheckCircle } from "react-icons/md";
 
 export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActual }) {
   const [mostrarMenu, setMostrarMenu] = useState(false);
@@ -42,7 +44,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
     temas:false,
   });
 
-    const { logout } = useAuth(); // ✅ usamos logout
+    const { logout } = useAuth(); // usamos logout
   
 
   const toggleDropdown = () => setMostrarMenu(prev => !prev);
@@ -196,7 +198,13 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
                 <MdAppRegistration className="iconodash" /> Registrar-Usuario
               </button>
                <button onClick={() => setContenidoActual("subiraprendiz")} className="opciondash">
-                <MdAppRegistration className="iconodash" /> Subir-Aprendiz
+                <AiOutlineUpload className="iconodash" /> Subir-Aprendiz
+              </button>
+              <button onClick={() => setContenidoActual("aprendices")} className="opciondash">
+                <FaUserGraduate className="iconodash" /> Aprendices-Registrados
+              </button>
+               <button onClick={() => setContenidoActual("usuarios-registrados")} className="opciondash">
+                <MdCheckCircle className="iconodash" /> Usuarios-Registrados
               </button>
                  {/* <button onClick={() => setContenidoActual("adminludicas")} className="opciondash">
                 <FaChartBar className="iconodash" /> Ludicas Aprendices
@@ -238,7 +246,7 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
          className="btn-cerrar-sesion"
          onClick={() => {
            logout(); 
-           toast.success("Sesión cerrada correctamente ");
+           toast.success("¡Sesión cerrada correctamente! ");
          }}
        >
          <FaRegCaretSquareRight className="icono-cerrar" /> 

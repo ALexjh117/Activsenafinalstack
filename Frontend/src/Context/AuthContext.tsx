@@ -59,7 +59,7 @@ useEffect(() => {
 
  const login = (nuevoToken: string, usuarioData: UsuarioAutenticado) => {
   localStorage.setItem("token", nuevoToken);
-  localStorage.setItem("usuario", JSON.stringify(usuarioData)); // ✅ Guarda el usuario completo
+  localStorage.setItem("usuario", JSON.stringify(usuarioData)); //  Guarda el usuario completo
   setToken(nuevoToken);
   setUsuario(usuarioData);
 };

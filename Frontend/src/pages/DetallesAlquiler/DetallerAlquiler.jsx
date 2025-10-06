@@ -85,8 +85,12 @@ const DetallesAlquiler = () => {
 
   return (
     <div className="contenedor-alquiler">
-      <h1>📋 Registros de Préstamos</h1>
-
+      <h1> Registros de Préstamos</h1>
+ <p className="descripcion-alquiler">
+        En esta sección se muestran todos los registros de préstamo de elementos realizados por los aprendices. 
+        Aquí puedes buscar préstamos por nombre, ficha o estado, marcar los elementos como entregados cuando 
+        se devuelvan correctamente, y agregar o editar observaciones relacionadas con cada préstamo.
+      </p>
       <input
         type="text"
         placeholder="Buscar por elemento, aprendiz o ficha"
