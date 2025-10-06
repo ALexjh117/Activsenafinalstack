@@ -2,7 +2,7 @@
 :root {
   --bg-color: #f7f9fc;
   --card-color: #ffffff;
-  --primary-color: #53e546;
+  --primary-color: #39d62b;
   --success-color: #16a34a;
   --danger-color: #dc2626;
   --text-color: #1f2937;
@@ -14,21 +14,22 @@
 
 /* Contenedor principal */
 .subir-aprendices-contenedor {
-  max-width: 900px;
+  max-width: 100%;
   margin: 2rem auto;
   padding: 2rem;
-  background-color: var(--card-color);
+
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   font-family: 'Segoe UI', sans-serif;
-  color: var(--text-color);
+
+  
 }
 
 /* Títulos */
 .subir-aprendices-contenedor h2 {
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
-  color: var(--primary-color);
+color: black;
 }
 
 /* Inputs */
