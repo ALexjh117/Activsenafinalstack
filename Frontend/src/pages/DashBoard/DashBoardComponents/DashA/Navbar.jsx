@@ -79,7 +79,7 @@ export default function Navbar({ toggleMenu, setContenidoActual }) {
           onChange={(e) => manejarBusqueda(e.target.value)}
           onFocus={() => busqueda && setMostrarResultados(true)}
           onBlur={() => setTimeout(() => setMostrarResultados(false), 150)}
-          className="input-busqueda"
+          className="input-busqueda-header"
         />
 
         {mostrarResultados && resultados.length > 0 && (
