@@ -113,7 +113,7 @@ export default function ApoyoSostenimiento() {
   ]
 
   const necesitasAyudaInformacino = [
-    {titulo: "Correo de Contacto:", descripcion : "apoyoregular.1@gmail.com",icon:"📧", href:"mailto:apoyoctpi@sena.edu.co"},
+    {titulo: "Correo de Contacto:", descripcion : "activsena66@gmail.com",icon:"📧", href:"mailto:apoyoctpi@sena.edu.co"},
     {titulo: "Teléfono:", descripcion: "+57 322 663 7578", icon:"📞", href:"tel:+573226637578"},
     {titulo: "Horario de Atención:", descripcion: "Lunes a Viernes: 9:00 AM - 5:00 PM", icon:"🕒", href:""},
   ]
