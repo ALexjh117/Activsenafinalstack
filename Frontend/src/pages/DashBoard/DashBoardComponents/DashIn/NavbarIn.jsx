@@ -15,6 +15,49 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
   const [animarCampana, setAnimarCampana] = useState(false);
   const [cantidadNoLeidas, setCantidadNoLeidas] = useState(0);
   const sonidoAlerta = useRef(new Audio("/audio/notificacion.mp3"));
+  const [busqueda, setBusqueda] = useState("");
+const [resultados, setResultados] = useState([]);
+const [mostrarResultados, setMostrarResultados] = useState(false);
+
+// Simulación de datos globales de ejemplo
+const elementosGlobales = [
+  { nombre: "misfeedbacks", ruta: "panelfeedback" },
+  { nombre: "MisEventos", ruta: "miseventos" },
+ { nombre: "Calendarioactividades" ,ruta:"calendarioactividades"},
+  { nombre: "Actividades", ruta: "actividades" },
+  { nombre: "Calendario", ruta: "constanciacr" },
+  { nombre: "PlanEvento", ruta: "planevento" },
+   { nombre: "Aplicacion" , as:"Eventos", ruta: "aplicacion" },
+  { nombre: "RegistroActividades", ruta: "registroactividades" },
+  { nombre: "RegistroLudicas", ruta: "registroLudicas" },
+  {nombre:"MisLudicas" , ruta:"misludicas"},
+   {nombre:"AprobadosEventos" ,as:"EventosAprobados" , ruta:"aprobadoseventos"},
+    {nombre:"feedback" ,as:"Feedbacks" , ruta:"feedback"},
+     {nombre:"cartacontacto" ,as:"Contactos" , ruta:"cartacontacto"}
+];
+
+const manejarBusqueda = (valor) => {
+  const limpio=valor.trim().toLowerCase()
+  setBusqueda(valor);
+
+  if (valor.trim() === "") {
+    setResultados([]);
+    setMostrarResultados(false);
+    return;
+  }
+
+  const valorMin = valor.toLowerCase();
+
+ const filtrados = elementosGlobales.filter((item) => {
+    const nombre = (item.nombre || "").toLowerCase(); 
+    const alias = (item.as || "").toLowerCase();
+    return nombre.includes(limpio) || alias.includes(limpio); 
+  });
+
+  setResultados(filtrados);
+  setMostrarResultados(true);
+};
+
 
   const idUsuario = JSON.parse(localStorage.getItem("usuario"))?.IdUsuario;
 
@@ -82,13 +125,45 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
   }, []);
 
   return (
+    
+    
     <header className="encabezadodash">
-      
-      <Rotar />
+       <Rotar />
+      <div className="contenedor-busqueda">
+  <input
+    type="text"
+    placeholder="¿Qué quieres hacer hoy?"
+    value={busqueda}
+    onChange={(e) => manejarBusqueda(e.target.value)}
+    onFocus={() => busqueda && setMostrarResultados(true)}
+    onBlur={() => setTimeout(() => setMostrarResultados(false), 150)}
+    className="input-busqueda"
+  />
+
+  {mostrarResultados && resultados.length > 0 && (
+    <ul className="lista-resultados">
+      {resultados.map((item, i) => (
+        <li
+          key={i}
+          onClick={() => {
+            setContenidoActual(item.ruta);
+            setBusqueda("");
+            setMostrarResultados(false);
+          }}
+        >
+  {item.as || item.nombre}
+
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
+     
       <nav className="accionesdash">
         <div className="relative">
           <button
-            className={`iconodash relative ${animarCampana ? "animar-campana" : ""}`}
+            className={`iconodash relative  iconocampanita${animarCampana ? "animar-campana" : ""}`}
             onClick={() => setMostrarNotificaciones(!mostrarNotificaciones)}
           >
             <FaBell />
@@ -98,6 +173,8 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
               </span>
             )}
           </button>
+          
+          
 
           {mostrarNotificaciones && (
             <div className="dropdown-notificaciones">
@@ -118,7 +195,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
                   {notificaciones.map((n) => (
                     <li
                       key={n.IdNotificacion}
-                      className={`notificacion-item ${n.Confirmado ? "notificacion-confirmada" : ""}`}
+                      className={`notificacion-item  ${n.Confirmado ? "notificacion-confirmada" : ""}`}
                       style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
                       onClick={() => {
                         if (n.RutaDestino) {
@@ -130,6 +207,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
                         }
                       }}
                     >
+                      
                       {n.imagenUrl && (
                         <img
                           src={n.imagenUrl}
@@ -165,6 +243,8 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
                 </ul>
               )}
             </div>
+            
+            
           )}
         </div>
 

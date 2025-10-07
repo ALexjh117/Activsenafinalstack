@@ -19,6 +19,51 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
   const [noticiasSindesena, setNoticiasSindesena] = useState([]);
   const [mostrarBanner, setMostrarBanner] = useState(false);
   const sonidoAlerta = useRef(new Audio("/audio/notificacion2.mp3"));
+ const [busqueda, setBusqueda] = useState("");
+const [resultados, setResultados] = useState([]);
+const [mostrarResultados, setMostrarResultados] = useState(false);
+
+const elementosGlobales = [
+ 
+ 
+ { nombre: "Calendarioactividades" ,ruta:"calendarioactividades"},
+  { nombre: "Actividades", ruta: "actividades" },
+  { nombre: "Constancia", ruta: "constanciacr" },
+  {nombre:"Ludicas", ruta:"ludicas"},
+
+   { nombre: "Aplicacion" , as:"Eventos", ruta: "aplicacion" },
+   {nombre:"HorasL",as:"Horasludicas", ruta:"horasl"},
+
+
+   
+      { nombre: "feedback", ruta: "feedback" },
+        {nombre:"Prestamos" ,as:"Prestamos" , ruta:"alquilerap"},
+          {nombre:"EscanerQR" ,as:"EscanerQR" , ruta:"escanerqr"},
+     {nombre:"cartacontacto" ,as:"Contactos" , ruta:"cartacontacto"}
+];
+
+const manejarBusqueda = (valor) => {
+  const limpio=valor.trim().toLowerCase()
+  setBusqueda(valor);
+
+  if (valor.trim() === "") {
+    setResultados([]);
+    setMostrarResultados(false);
+    return;
+  }
+
+  const valorMin = valor.toLowerCase();
+
+ const filtrados = elementosGlobales.filter((item) => {
+    const nombre = (item.nombre || "").toLowerCase(); 
+    const alias = (item.as || "").toLowerCase();
+    return nombre.includes(limpio) || alias.includes(limpio); 
+  });
+
+  setResultados(filtrados);
+  setMostrarResultados(true);
+};
+
 
   const idUsuario = JSON.parse(localStorage.getItem("usuario"))?.IdUsuario;
 
@@ -99,7 +144,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
     obtenerNoticiasSindesena();
   }, []);
 
-  // ⏱️ Ocultar banner automáticamente luego de 10 segundos
+  // ⏱ Ocultar banner automáticamente luego de 10 segundos
   useEffect(() => {
     if (mostrarBanner) {
       const timer = setTimeout(() => {
@@ -109,43 +154,46 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
     }
   }, [mostrarBanner]);
 
-  return (
-    <>
-      {/* 🟩 Banner de noticia de Sindesena con cierre automático y botón ✖ */}
-      {noticiasSindesena.length > 0 && mostrarBanner && (
-        <>
-          <div className="logo-sindesena-wrapper">
-            <img src={sindesenaLogo} alt="Sindesena" className="logo-sindesena" />
-          </div>
-
-          <div className="banner-sindesena">
-            <span role="img" aria-label="noticia">📰</span>
-            <strong> Sindesena informa:</strong> {noticiasSindesena[0].NombreActi}
-            <button
-              onClick={() => setContenidoActual("noticias")}
-              className="ver-mas-noti"
-            >
-              Ver más
-            </button>
-            <button
-              onClick={() => setMostrarBanner(false)}
-              className="btn-cerrar-banner"
-              title="Cerrar banner"
-            >
-              ✖
-            </button>
-          </div>
-        </>
-      )}
-
+   return (
+      
+      
       <header className="encabezadodash">
-        
-        <Rotar />
-
+         <Rotar />
+        <div className="contenedor-busqueda">
+    <input
+      type="text"
+      placeholder="¿Qué quieres hacer hoy?"
+      value={busqueda}
+      onChange={(e) => manejarBusqueda(e.target.value)}
+      onFocus={() => busqueda && setMostrarResultados(true)}
+      onBlur={() => setTimeout(() => setMostrarResultados(false), 150)}
+      className="input-busqueda"
+    />
+  
+    {mostrarResultados && resultados.length > 0 && (
+      <ul className="lista-resultados">
+        {resultados.map((item, i) => (
+          <li
+            key={i}
+            onClick={() => {
+              setContenidoActual(item.ruta);
+              setBusqueda("");
+              setMostrarResultados(false);
+            }}
+          >
+    {item.as || item.nombre}
+  
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+  
+       
         <nav className="accionesdash">
           <div className="relative">
             <button
-              className={`iconodash relative ${animarCampana ? "animar-campana" : ""}`}
+              className={`iconodash relative  iconocampanita${animarCampana ? "animar-campana" : ""}`}
               onClick={() => setMostrarNotificaciones(!mostrarNotificaciones)}
             >
               <FaBell />
@@ -155,7 +203,9 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
                 </span>
               )}
             </button>
-
+            
+            
+  
             {mostrarNotificaciones && (
               <div className="dropdown-notificaciones">
                 <div className="noti-header">
@@ -167,7 +217,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
                     ✖
                   </button>
                 </div>
-
+  
                 {notificaciones.length === 0 ? (
                   <p>No hay notificaciones.</p>
                 ) : (
@@ -175,7 +225,7 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
                     {notificaciones.map((n) => (
                       <li
                         key={n.IdNotificacion}
-                        className={`notificacion-item ${n.Confirmado ? "notificacion-confirmada" : ""}`}
+                        className={`notificacion-item  ${n.Confirmado ? "notificacion-confirmada" : ""}`}
                         style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
                         onClick={() => {
                           if (n.RutaDestino) {
@@ -187,10 +237,11 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
                           }
                         }}
                       >
+                        
                         {n.imagenUrl && (
                           <img
                             src={n.imagenUrl}
-                            alt="Elemento"
+                            alt="img"
                             style={{
                               width: 50,
                               height: 50,
@@ -222,12 +273,13 @@ export default function Navbar({ toggleMenu, setContenidoActual, cerrarSesion })
                   </ul>
                 )}
               </div>
+              
+              
             )}
           </div>
-
-          
+  
+      
         </nav>
       </header>
-    </>
-  );
-}
+    );
+  }

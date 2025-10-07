@@ -17,7 +17,7 @@ import {
   FaChevronRight,
 
   FaRegCaretSquareRight,
-
+FaRegCalendarAlt ,
   FaRegUserCircle
 
 } from "react-icons/fa";
@@ -105,11 +105,16 @@ export default function MenuLateral({ menuAbierto, toggleMenu, setContenidoActua
           <button className="tituloseccion" onClick={() => toggleSection("eventos")}>
             {openSection.eventos ? <FaChevronDown /> : <FaChevronRight />} Eventos
           </button>
+          
           {openSection.eventos && (
             <>
               <button onClick={() => setContenidoActual("actividad")} className="opciondash">
                 <PiPersonSimpleThrowLight className="iconodash" /> Actividades
               </button>
+
+                <button onClick={() => setContenidoActual("calendarioactividades")} className="opciondash">
+                              <FaRegCalendarAlt className="iconodash" /> Calendario
+                            </button>
               <button onClick={() => setContenidoActual("aplicacion")} className="opciondash">
                 <MdEventAvailable className="iconodash" /> Eventos
               </button>

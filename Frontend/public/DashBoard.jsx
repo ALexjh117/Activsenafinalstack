@@ -35,6 +35,7 @@ import ListaTrimestre from "../src/pages/ListaEventosTM/EventosporTrimestre";
 import Registro from "./Registro";
 import SubirAprendices from "../src/pages/SubirAprendices/SubirAprendices";
 import AprendicesCargados from "../src/pages/SubirAprendices/AprendicesCargados";
+import CalendarioActividades from "../src/pages/CalendarioAdmin/CalendarioActividades";
 import UsuariosCargados from "../public/UsuariosCargados";
 export default function DashBoard() {
   const [menuAbierto, setMenuAbierto] = useState(true);
@@ -118,6 +119,7 @@ export default function DashBoard() {
         {contenidoActual === "constancia" && <ConstanciaCertificado />}
         {contenidoActual === "constancia2" && <ConstanciasList />}
         {contenidoActual === "cartacontacto" && <CartaContacto />}
+         {contenidoActual === "calendarioactividades" && <CalendarioActividades />}
         {contenidoActual === "chatai" && <ChatAI />}
         {contenidoActual === "config" && <ConfigView />}
         {contenidoActual === "analisisia" && <AnalisisIA />}

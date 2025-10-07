@@ -30,7 +30,8 @@ import AprendicesCargados from "./pages/SubirAprendices/AprendicesCargados"
 import PlanificarEvento from "./pages/PlanificarEv/PlanificarEvento";
 import ToastProvider from "../public/ToastProvider";
 import UsuariosCargados from "../public/UsuariosCargados";
-
+import Aplicacion from "../src/pages/Aplicacion/Aplicacion"
+import HorasLudicas from "./pages/HorasLudicas/HorasLudicas";
 export default function RutasComponents() {
   return (
     <BrowserRouter>
@@ -45,6 +46,7 @@ export default function RutasComponents() {
             <Route path="/dash" element={<DashBoard />} />
             <Route path="/dashap" element={<DashBoardAp />} />
             <Route path="/dashin" element={<DashBoardIn />} />
+             <Route path="/horasl" element={<HorasLudicas />} />
             <Route path="/actividades" element={<Actividades />} />
             <Route path="/historial" element={<HistorialAsistencia />} />
             <Route path="/formulariocatalogo" element={<FormularioCatalogo />} />
@@ -60,7 +62,9 @@ export default function RutasComponents() {
                <Route path="/usuarios-registrados" element={<UsuariosCargados />} />
             <Route path="/historial" element={<HistorialAsistencia IdUsuario={1} />} />
             <Route path="/apoyo-sostenimiento" element={<ApoyoSostenimiento />} />
+               <Route path="/aplicacion" element={<Aplicacion />} />
              <Route path="/planevento" element={<PlanificarEvento />} />
+               <Route path="/feedback" element={<Feedbacks />} />
           </Routes>
         </IAProvider>
       </AuthProvider>

@@ -171,3 +171,75 @@ height: 100px;
 
 
 }
+input[type="text"]::placeholder {
+  color: #888;
+}
+
+.animar-campana {
+  animation: campana 0.5s ease;
+}
+
+@keyframes campana {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+  75% { transform: rotate(-10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Contenedor principal de la búsqueda */
+.contenedor-busqueda {
+  position: relative;
+  
+  margin-right: 1rem;
+}
+
+/* Estilo del campo de búsqueda */
+.input-busqueda {
+  width: 300px;
+         margin-right: 560px;  
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Efecto al hacer foco (click dentro del input) */
+.input-busqueda:focus {
+  border-color: #007bff;      /* Color azul suave */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+}
+
+/* Resultados desplegables */
+.lista-resultados {
+  position: absolute;
+  top: 45px;                  /* justo debajo del input */
+  left: 0;
+     
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 5px 0;
+  z-index: 999;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Cada ítem del resultado */
+.lista-resultados li {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Efecto hover */
+.lista-resultados li:hover {
+  background-color: #f1f5ff;
+}

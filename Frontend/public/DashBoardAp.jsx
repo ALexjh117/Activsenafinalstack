@@ -121,6 +121,8 @@ export default function DashBoard() {
         {contenidoActual === "alquilerap" && <AlquilerAP />}
         {contenidoActual === "combinar" && <Combinar />}
         {contenidoActual === "chatai" && <ActivBotdf />}
+        {contenidoActual === "feedback" && <Feedbacks />}
+
         {contenidoActual === "cartacontacto" && <CartaContacto />}
         {contenidoActual === "constanciacr" && <Constanciacr />}
         {contenidoActual === "perfil" && <HomeDash />}
