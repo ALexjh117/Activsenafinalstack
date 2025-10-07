@@ -32,7 +32,7 @@ body {
 
 .evento-app-contenedor-principal {
   width: 100%;
-  max-width: 1100px;
+  max-width: 100%;
   background-color: var(--fondo);
   border-radius: 1rem;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
