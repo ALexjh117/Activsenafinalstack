@@ -14,7 +14,7 @@ export default function FooterHome() {
               <span className="footer-logo-waso-home">Activ</span>
               <span className="footer-logo-strategy-home">Sena</span>
             </div>
-            <p>Somos una firma de consultoría de negocios profesional dedicada a ayudar a las empresas a crecer y tener éxito en el mercado competitivo actual.</p>
+            <p>En ActivSena impulsamos el bienestar y la participación de los aprendices, conectándolos con actividades, apoyo y oportunidades que potencian su experiencia formativa en el SENA.</p>
             <div className="footer-social-home">
           <a href="https://www.facebook.com/profile.php?id=61581929817911" className="footer-social-icon-home">
            <FontAwesomeIcon icon={faFacebook} />
@@ -49,7 +49,7 @@ export default function FooterHome() {
                 <i className="icon-location-home i-home"></i>
               </div>
               <div className="footer-contact-text-home">
-                Popayan, Cauca, Colombia 
+                Kra. 9 No. 71 - 60 Sede Alto Cauca / Carrera 9 ,Popayan, Cauca, Colombia 
               </div>
             </div>
             <div className="footer-contact-item-home">
@@ -65,7 +65,7 @@ export default function FooterHome() {
                 <i className="icon-email-home i-home"></i>
               </div>
               <div className="footer-contact-text-home" href="mailto:activsena.gmail.com">
-                activsena@gmail.com
+                activsena66@gmail.com
               </div>
             </div>
           </div>
