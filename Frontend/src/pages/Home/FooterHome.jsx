@@ -1,6 +1,6 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebook, faPinterest, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
+import { faFacebook,  faTwitter, faYoutube,faInstagram } from '@fortawesome/free-brands-svg-icons'
 
 import "./styles/FooterHome.css"
 
@@ -16,16 +16,16 @@ export default function FooterHome() {
             </div>
             <p>Somos una firma de consultoría de negocios profesional dedicada a ayudar a las empresas a crecer y tener éxito en el mercado competitivo actual.</p>
             <div className="footer-social-home">
-          <a href="https://www.facebook.com" className="footer-social-icon-home">
+          <a href="https://www.facebook.com/profile.php?id=61581929817911" className="footer-social-icon-home">
            <FontAwesomeIcon icon={faFacebook} />
         </a>
-         <a href="https://www.pinterest.com" className="footer-social-icon-home">
-        <FontAwesomeIcon icon={faPinterest} />
+         <a href="https://www.instagram.com/acti.vv85/" className="footer-social-icon-home">
+        <FontAwesomeIcon icon={faInstagram} />
         </a>
-        <a href="https://www.x.com" className="footer-social-icon-home">
+        <a href="https://x.com/ASena26164" className="footer-social-icon-home">
        <FontAwesomeIcon icon={faTwitter} />
       </a>
-      <a href="https://www.youtube.com" className="footer-social-icon-home">
+      <a href="https://www.youtube.com/@ActivSena" className="footer-social-icon-home">
       <FontAwesomeIcon icon={faYoutube} />
    </a>
       </div>

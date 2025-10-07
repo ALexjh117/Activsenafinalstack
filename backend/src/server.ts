@@ -35,7 +35,7 @@ import aprendizRoutes from "./routes/Aprendiz.routes";
 import EventoActividadRoutes from "./routes/EventoActividad.Routes";
 import ReaccionEventoRouter from './routes/ReaccionEvento.Routes';
 import dialogflowRouter from "./routes/dialogflowWebhook";
-
+import EmailRoutes from "./routes/Email.Routes"
 
 async function connectDB() {
   try {
@@ -93,6 +93,7 @@ app.use("/api/relusuarioevento", RelUsuarioEventoRouter);
 app.use("/api/solicitudapoyo", SolicitudApoyoRouter);
 app.use("/api/historial", HistorialSolicitudRouter);
 app.use("/api/elemento", ElementoRouter);
+app.use("/api/mensajes", EmailRoutes);
 
 app.use("/api/eventoactividad", EventoActividadRoutes);
 
