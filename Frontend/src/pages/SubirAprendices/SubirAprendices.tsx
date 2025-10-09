@@ -281,10 +281,7 @@ toast.success(data.mensaje || "Archivo subido con éxito");
             </button>
           </div>
           <div className="subir-aprendices-modal-body">
-            <p className="subir-aprendices-text-danger">
-              Recuerda que los aprendices que no estén en estado activo y en
-              formación, no podrán votar a menos que se modifique su estado manualmente.
-            </p>
+           
             <p>
               El archivo debe ser el reporte oficial de aprendices generado desde
               <span className="subir-aprendices-text-success"> Sofía Plus</span>.
@@ -294,9 +291,7 @@ toast.success(data.mensaje || "Archivo subido con éxito");
               <li>
                 Archivo seleccionado: <strong>{archivo?.name || "—"}</strong>
               </li>
-              <li className="subir-aprendices-text-danger">
-                Ten en cuenta que los aprendices serán enlazados según tu centro de Formación
-              </li>
+             
               <li>
                 Ficha detectada: <strong>{fichaDetectada || "—"}</strong>
               </li>

@@ -64,33 +64,45 @@ const Aplicacion = () => {
   const decoded: any = token ? JSON.parse(atob(token.split(".")[1])) : {};
   const idUsuario = decoded?.IdUsuario;
 
-  const cargarEventosYReacciones = async () => {
-    try {
-      const res = await axios.get("https://render-hhyo.onrender.com/api/evento/publicos");
-      setEventosPublicos(res.data);
+ const cargarEventosYReacciones = async () => {
+  try {
+    const res = await axios.get("https://render-hhyo.onrender.com/api/evento/publicos");
 
-      const reaccionesPorEvento = await Promise.all(
-        res.data.map((evento: EventoConDatos) =>
-          axios.get(`https://render-hhyo.onrender.com/api/reacciones/evento/${evento.IdEvento}`)
-        )
-      );
+    // 🔹 Obtenemos la fecha actual
+    const ahora = new Date();
 
-      const reaccionesMap: Record<number, { like: number; dislike: number }> = {};
-      const misReacciones: Record<number, "like" | "dislike" | null> = {};
+    // 🔹 Filtrar eventos futuros o actuales
+    const eventosFiltrados = res.data.filter((evento: EventoConDatos) => {
+      const fechaFin = new Date(`${evento.FechaFin}T${evento.HoraFin}`);
+      return fechaFin >= ahora; // Mantener solo los que no han terminado
+    });
 
-      res.data.forEach((evento: EventoConDatos, idx: number) => {
-        const { likes, dislikes, detalles } = reaccionesPorEvento[idx].data;
-        reaccionesMap[evento.IdEvento] = { like: likes, dislike: dislikes };
-        const yo = detalles.find((r: any) => r.usuario?.IdUsuario === idUsuario);
-        misReacciones[evento.IdEvento] = yo?.Tipo || null;
-      });
+    setEventosPublicos(eventosFiltrados);
 
-      setReacciones(reaccionesMap);
-      setMiReaccion(misReacciones);
-    } catch (err) {
-      console.error("❌ Error al cargar eventos o reacciones:", err);
-    }
-  };
+    // Cargar reacciones solo de los eventos filtrados
+    const reaccionesPorEvento = await Promise.all(
+      eventosFiltrados.map((evento: EventoConDatos) =>
+        axios.get(`https://render-hhyo.onrender.com/api/reacciones/evento/${evento.IdEvento}`)
+      )
+    );
+
+    const reaccionesMap: Record<number, { like: number; dislike: number }> = {};
+    const misReacciones: Record<number, "like" | "dislike" | null> = {};
+
+    eventosFiltrados.forEach((evento: EventoConDatos, idx: number) => {
+      const { likes, dislikes, detalles } = reaccionesPorEvento[idx].data;
+      reaccionesMap[evento.IdEvento] = { like: likes, dislike: dislikes };
+      const yo = detalles.find((r: any) => r.usuario?.IdUsuario === idUsuario);
+      misReacciones[evento.IdEvento] = yo?.Tipo || null;
+    });
+
+    setReacciones(reaccionesMap);
+    setMiReaccion(misReacciones);
+  } catch (err) {
+    console.error("❌ Error al cargar eventos o reacciones:", err);
+  }
+};
+
 
   const cargarFeedbacksEvento = async (idEvento: number) => {
     try {
@@ -166,7 +178,7 @@ const Aplicacion = () => {
           <header className="evento-app-cabecera">
             <h2 className="evento-app-titulo-seccion">Novedades</h2>
             <div ref={feedbackRef} id="seccion-feedback" className="feedback-seccion-container">
-              <h2 className="color-eventoa" style={{ textAlign: "center", marginBottom: "20px" }}>Eventos y actividades</h2>
+              <h2 className="color-eventoa" style={{ textAlign: "center", marginBottom: "20px" }}>Eventos </h2>
               {eventoSeleccionado && (
                 <Feedbacks key={eventoSeleccionado} idEventoSeleccionado={eventoSeleccionado} />
               )}

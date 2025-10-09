@@ -6,7 +6,6 @@ import { enviarNotificacion } from "../services/notificacionesService";
 import { Usuario } from "../models/Usuario";
 import { Op } from "sequelize";
 
-// ✅ imports para Cloudinary
 import cloudinary from "../config/cloudinary";
 import streamifier from "streamifier";
 

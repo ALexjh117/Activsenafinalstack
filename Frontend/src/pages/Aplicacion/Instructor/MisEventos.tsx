@@ -57,21 +57,34 @@ export default function MisEventos() {
   const [mostrarReporte, setMostrarReporte] = useState(false);
 const [eventoSeleccionadoId, setEventoSeleccionadoId] = useState<number | null>(null);
 
+useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    const decoded = JSON.parse(atob(token.split(".")[1]));
+    setUsuarioId(decoded.IdUsuario);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = JSON.parse(atob(token.split(".")[1]));
-      setUsuarioId(decoded.IdUsuario);
+    axios
+      .get("https://render-hhyo.onrender.com/api/evento/evento/mis-eventos", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        const eventosTotales: EventoConDatos[] = res.data;
 
-      axios
-        .get("https://render-hhyo.onrender.com/api/evento/evento/mis-eventos", {
-          headers: { Authorization: `Bearer ${token}` },
-        })
-        .then((res) => setEventos(res.data))
-        .catch((err) => console.error("❌ Error cargando eventos:", err));
-    }
-  }, []);
+        // Fecha y hora actual
+        const ahora = new Date();
+
+        // Filtrar solo eventos que NO han terminado
+        const eventosDisponibles = eventosTotales.filter((evento) => {
+          const fechaFin = new Date(`${evento.FechaFin}T${evento.HoraFin}`);
+          return fechaFin >= ahora;
+        });
+
+        setEventos(eventosDisponibles);
+      })
+      .catch((err) => console.error("❌ Error cargando eventos:", err));
+  }
+}, []);
+
 
   const obtenerAsistencias = async (IdEvento: number): Promise<AsistenciaItem[]> => {
     try {

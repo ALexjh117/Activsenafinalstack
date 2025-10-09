@@ -142,12 +142,13 @@ const CalendarioAp = () => {
   // Confirmar asistencia
   const confirmarAsistencia = async (eventoId) => {
     const idNum = Number(eventoId.toString().replace(/^[ae]-/, ''));
-    const IdUsuario = Number(localStorage.getItem("usuarioId"));
+   const IdUsuario = Number(localStorage.getItem("IdUsuario"));
+
     const token = localStorage.getItem("token");
 
     try {
       await axios.post(
-        'https://render-hhyo.onrender.com/api/relusuarioevento/confirmar-asistencia',
+        'http://localhost:3002/api/relusuarioevento/confirmar-asistencia',
         { IdUsuario, IdEvento: idNum },
         { headers: { Authorization: `Bearer ${token}` } }
       );

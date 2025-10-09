@@ -14,10 +14,16 @@ const ListaLudicas = () => {
   const elementosPorPagina = 5;
 
   useEffect(() => {
-    axios.get('https://render-hhyo.onrender.com/api/ludica')
-      .then(res => setLudicas(res.data))
-      .catch(err => console.error("❌ Error cargando lúdicas:", err));
-  }, []);
+  axios.get('https://render-hhyo.onrender.com/api/ludica')
+    .then(res => {
+      const soloLudicas = res.data.filter(item => 
+        item.TipoLudica && item.TipoLudica.toLowerCase().includes("lúdica")
+      );
+      setLudicas(soloLudicas);
+    })
+    .catch(err => console.error(" Error cargando lúdicas:", err));
+}, []);
+
 
   useEffect(() => {
     const fetchReacciones = async () => {
