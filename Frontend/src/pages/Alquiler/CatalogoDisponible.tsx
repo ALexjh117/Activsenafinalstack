@@ -38,7 +38,7 @@ const CatalogoDisponible = () => {
 
   return (
     <div className="catalogo-container">
-      <h2 className="catalogo-titulo">Elementos Disponibles para Alquiler</h2>
+      <h2 className="catalogo-titulo">Elementos Disponibles22 para Alquiler</h2>
 
       <div className="grid-catalogo">
         {catalogo.map((el) => (
@@ -69,7 +69,7 @@ const CatalogoDisponible = () => {
               &times;
             </span>
             <img
-              src={`https://render-hhyo.onrender.com/api/qrcode/${qrActivo.IdElemento}.png`}
+              src={`https://render-hhyo.onrender.com/qrcodes/${qrActivo.IdElemento}.png`}
               alt={`QR de ${qrActivo.Nombre}`}
               className="qr-grande"
             />

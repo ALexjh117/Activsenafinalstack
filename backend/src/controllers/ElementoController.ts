@@ -109,6 +109,31 @@ export class ElementoController {
       return;
     }
   }
+  static async getQRCode(req: Request, res: Response) {
+  try {
+    const { id } = req.params;
+
+    const elemento = await Elemento.findByPk(id);
+    if (!elemento) {
+      res.status(404).json({ error: "Elemento de alquiler no encontrado" });
+      return
+    }
+
+    const qrPath = path.resolve(__dirname, "../../public/qrcodes", `${id}.png`);
+
+    if (!fs.existsSync(qrPath)) {
+     res.status(404).json({ error: "QR no encontrado en el servidor" });
+     return
+    }
+
+    // Devuelve el archivo de imagen
+    res.sendFile(qrPath);
+  } catch (error) {
+    console.error("Error al obtener el QR:", error);
+    res.status(500).json({ error: "Error interno al obtener el QR" });
+  }
+}
+
 
   static async eliminarElemento(req: Request, res: Response) {
     try {

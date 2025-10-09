@@ -8,5 +8,5 @@ const router = Router();
 router.post('/', upload.single('imagen'), ElementoController.crearElemento);
 router.get('/', ElementoController.getCatalogo);
 router.delete('/:IdElemento', ElementoController.eliminarElemento);
-
+router.get("/qrcode/:id", ElementoController.getQRCode);
 export default router;
