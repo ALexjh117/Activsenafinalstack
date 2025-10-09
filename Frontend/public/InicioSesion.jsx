@@ -68,7 +68,10 @@ export default function InicioSesion() {
 
       const { token, usuario } = response.data;
 console.log ( "usuario recibido" , usuario);
-     
+
+console.log("✅ Token recibido del backend:", token);
+console.log("👤 Usuario recibido:", usuario);
+
 
 
 

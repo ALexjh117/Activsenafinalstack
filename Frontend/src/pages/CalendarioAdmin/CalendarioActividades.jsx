@@ -35,19 +35,16 @@ const CalendarioAp = () => {
   useEffect(() => {
     const cargarTodo = async () => {
       try {
-        const token = localStorage.getItem("token");
+       const token = localStorage.getItem("token");
+const headers = { Authorization: `Bearer ${token}` };
 
-        // Primero usuarios
-        const resUsuarios = await axios.get("https://render-hhyo.onrender.com/api/usuario", {
-          headers: { Authorization: `Bearer ${token}` }
-        });
-        setUsuarios(resUsuarios.data);
+// Ejemplo correcto:
+const resUsuarios = await axios.get("https://render-hhyo.onrender.com/api/usuario", { headers });
+const [resActividades, resEventos] = await Promise.all([
+  axios.get("https://render-hhyo.onrender.com/api/actividad", { headers }),
+  axios.get("https://render-hhyo.onrender.com/api/evento/publicos", { headers }),
+]);
 
-        // Luego actividades y eventos en paralelo
-        const [resActividades, resEventos] = await Promise.all([
-          axios.get("https://render-hhyo.onrender.com/api/actividad"),
-          axios.get("https://render-hhyo.onrender.com/api/evento/publicos"),
-        ]);
 
         // Map actividades
         const actividades = resActividades.data.map(actividad => {
@@ -140,19 +137,53 @@ const CalendarioAp = () => {
   };
 
   // Confirmar asistencia
-  const confirmarAsistencia = async (eventoId) => {
-    const idNum = Number(eventoId.toString().replace(/^[ae]-/, ''));
-   const IdUsuario = Number(localStorage.getItem("IdUsuario"));
+ const confirmarAsistencia = async (eventoId) => {
+  const idNum = Number(eventoId.toString().replace(/^[ae]-/, ''));
 
-    const token = localStorage.getItem("token");
+  // Usa la clave correcta: "IdUsuario"
+  let IdUsuario = localStorage.getItem("IdUsuario");
+  const token = localStorage.getItem("token");
 
+  // Si no existe IdUsuario en localStorage, intenta extraerlo del token
+  if (!IdUsuario && token) {
     try {
-      await axios.post(
-        'http://localhost:3002/api/relusuarioevento/confirmar-asistencia',
-        { IdUsuario, IdEvento: idNum },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      if (payload?.IdUsuario) {
+        IdUsuario = String(payload.IdUsuario);
+        localStorage.setItem("IdUsuario", IdUsuario);
+        console.log("IdUsuario extraído del token:", IdUsuario);
+      }
+    } catch (e) {
+      console.warn("No se pudo extraer IdUsuario del token", e);
+    }
+  }
 
+  const IdUsuarioNum = Number(IdUsuario);
+
+  if (!token) {
+    Swal.fire({ icon: 'error', title: 'No autenticado', text: 'Token no encontrado.' });
+    return;
+  }
+  if (!IdUsuarioNum || Number.isNaN(IdUsuarioNum)) {
+    Swal.fire({ icon: 'error', title: 'Usuario inválido', text: 'IdUsuario no válido.' });
+    return;
+  }
+
+  const url = 'https://render-hhyo.onrender.com/api/relusuarioevento/confirmar-asistencia';
+  const body = { IdUsuario: IdUsuarioNum, IdEvento: idNum };
+  console.log("POST ->", url);
+  console.log("Headers -> Authorization: Bearer <token?>", !!token);
+  console.log("Body ->", body);
+
+  try {
+    const res = await axios.post(url, body, {
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      validateStatus: status => status < 500
+    });
+
+    console.log("Respuesta confirmar-asistencia:", res.status, res.data);
+
+    if (res.status === 200 || res.status === 201) {
       await Swal.fire({
         icon: 'warning',
         title: '¡Atención!',
@@ -160,19 +191,22 @@ const CalendarioAp = () => {
         confirmButtonText: 'Aceptar',
       });
 
-      const nuevosEventos = events.map(ev =>
-        ev.id === eventoId ? { ...ev, asistio: true } : ev
-      );
+      const nuevosEventos = events.map(ev => ev.id === eventoId ? { ...ev, asistio: true } : ev);
       setEvents(nuevosEventos);
-
-      if (selectedEvent && selectedEvent.id === eventoId) {
-        setSelectedEvent(prev => ({ ...prev, asistio: true }));
-      }
-    } catch (err) {
-      console.error("Error al confirmar asistencia:", err);
-      alert("Error al confirmar asistencia");
+      if (selectedEvent && selectedEvent.id === eventoId) setSelectedEvent(prev => ({ ...prev, asistio: true }));
+    } else {
+      Swal.fire({ icon: 'error', title: `Error ${res.status}`, text: res.data?.mensaje || JSON.stringify(res.data) });
     }
-  };
+  } catch (err) {
+    console.error("Error al confirmar asistencia:", err);
+    if (err.response) {
+      console.error("err.response:", err.response.status, err.response.data);
+      Swal.fire({ icon: 'error', title: `Error ${err.response.status}`, text: JSON.stringify(err.response.data) });
+    } else {
+      Swal.fire({ icon: 'error', title: 'Error', text: err.message || 'Error desconocido' });
+    }
+  }
+};
 
   // Renderizar días del calendario
   const renderCalendarDays = () => {
